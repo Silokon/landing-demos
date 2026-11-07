@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURENNE - уходовая косметика с бережными формулами</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --milk:#fbf8f3;
+  --cream:#f4eee6;
+  --sand:#ebe2d6;
+  --powder:#e9cfc6;
+  --powder-deep:#c99a8c;
+  --sage:#9fb198;
+  --sage-deep:#5e7360;
+  --sage-soft:#e6ece1;
+  --ink:#2f2926;
+  --muted:#857a73;
+  --line:rgba(47,41,38,.09);
+  --line-strong:rgba(47,41,38,.16);
+  --shadow:0 30px 70px rgba(94,74,64,.12);
+  --shadow-sm:0 14px 34px rgba(94,74,64,.08);
+  --r:22px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:'Onest',sans-serif;color:var(--ink);background:var(--milk);line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:none}
+input{font-family:inherit}
+h1,h2,h3,.serif{font-family:'Playfair Display',serif;font-weight:400;line-height:1.1;letter-spacing:-.01em}
+.container{max-width:1280px;margin:0 auto;padding:0 32px}
+section{padding:110px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:20px}
+.eyebrow::before{content:"";width:22px;height:1px;background:currentColor;opacity:.6}
+.head{max-width:860px;margin:0 auto 56px;text-align:center}
+.head .eyebrow::after{content:"";width:22px;height:1px;background:currentColor;opacity:.6}
+.head.left{margin-left:0;text-align:left}
+.head.left .eyebrow::after{display:none}
+h2.title{font-size:clamp(34px,4.2vw,56px)}
+h2.title em{font-style:italic;color:var(--powder-deep)}
+.lead{color:var(--muted);font-size:17px;margin-top:18px}
+.head .lead{max-width:640px;margin-left:auto;margin-right:auto}
+.head.left .lead{margin-left:0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 30px;border-radius:999px;font-size:15px;font-weight:500;letter-spacing:.01em;transition:all .4s var(--ease);border:1px solid transparent;white-space:nowrap}
+.btn svg{width:18px;height:18px}
+.btn-dark{background:var(--ink);color:var(--milk)}
+.btn-dark:hover{background:var(--sage-deep);transform:translateY(-2px)}
+.btn-light{background:transparent;border-color:var(--line-strong)}
+.btn-light:hover{border-color:var(--ink)}
+.btn-sage{background:var(--sage-deep);color:#fff}
+.btn-sage:hover{background:var(--ink)}
+
+/* Header */
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(251,248,243,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .4s,box-shadow .4s}
+header.scrolled{border-bottom-color:var(--line);box-shadow:0 10px 30px rgba(94,74,64,.05)}
+.topbar{background:var(--sage-deep);color:#f3f1ea;font-size:12.5px;text-align:center;padding:8px 16px;letter-spacing:.03em}
+.nav{display:flex;align-items:center;gap:36px;height:76px}
+.logo{font-family:'Playfair Display',serif;font-size:26px;letter-spacing:.2em;display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.logo svg{width:26px;height:26px}
+.nav-links{display:flex;gap:30px;list-style:none;margin-right:auto}
+.nav-links a{font-size:14.5px;color:var(--ink);opacity:.82;transition:opacity .3s;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:1px;background:var(--ink);transition:right .35s var(--ease)}
+.nav-links a:hover{opacity:1}
+.nav-links a:hover::after{right:0}
+.search{position:relative;width:250px}
+.search input{width:100%;height:44px;border-radius:999px;border:1px solid var(--line-strong);background:#fff;padding:0 18px 0 44px;font-size:14px;color:var(--ink);outline:none;transition:border-color .3s,box-shadow .3s}
+.search input:focus{border-color:var(--sage);box-shadow:0 0 0 4px rgba(159,177,152,.18)}
+.search svg{position:absolute;left:16px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--muted)}
+.icons{display:flex;align-items:center;gap:6px}
+.icon-btn{position:relative;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;transition:background .3s}
+.icon-btn:hover{background:var(--cream)}
+.icon-btn svg{width:22px;height:22px}
+.count{position:absolute;top:3px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--powder-deep);color:#fff;font-size:11px;font-weight:600;display:grid;place-items:center;line-height:1;transition:transform .3s}
+.count.zero{background:var(--sand);color:var(--muted)}
+.count.bump{animation:bump .5s var(--ease)}
+@keyframes bump{40%{transform:scale(1.45)}}
+.search-toggle,.burger{display:none}
+.mobile-search{display:none;padding:0 16px 14px}
+.mobile-search .search{width:100%}
+
+/* Hero */
+.hero{padding:178px 0 90px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(233,207,198,.55),rgba(233,207,198,0) 70%);right:-160px;top:-120px;z-index:-1}
+.hero-grid{display:grid;grid-template-columns:1.02fr 1fr;gap:64px;align-items:center}
+.hero h1{font-size:clamp(48px,6vw,88px);line-height:1.02}
+.hero h1 em{font-style:italic;color:var(--powder-deep)}
+.hero .sub{font-size:18px;color:var(--muted);max-width:480px;margin:26px 0 38px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:40px;margin-top:54px;padding-top:30px;border-top:1px solid var(--line)}
+.hero-stats b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:34px;line-height:1.1}
+.hero-stats span{font-size:13px;color:var(--muted)}
+.hero-visual{position:relative}
+.hero-photo{position:relative;border-radius:320px 320px 28px 28px;overflow:hidden;height:620px;box-shadow:var(--shadow)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:62% 60%}
+.hero-card{position:absolute;left:-36px;bottom:56px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-radius:20px;padding:14px 22px 14px 14px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-sm);cursor:pointer;transition:transform .4s var(--ease)}
+.hero-card:hover{transform:translateY(-4px)}
+.hero-card .thumb{width:74px;height:74px;border-radius:14px;background:var(--sage-soft);display:grid;place-items:center}
+.hero-card .thumb svg{width:64px;height:64px}
+.hero-card small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-deep);font-weight:600}
+.hero-card strong{display:block;font-weight:500;font-size:15px;margin:2px 0}
+.hero-card span{font-size:14px;color:var(--muted)}
+.hero-chip{position:absolute;right:22px;top:110px;background:var(--ink);color:var(--milk);border-radius:999px;padding:10px 18px;font-size:13px;display:flex;gap:8px;align-items:center}
+.hero-chip i{width:8px;height:8px;border-radius:50%;background:#b8d2ae;display:block}
+
+/* Benefits strip */
+.strip{padding:0 0 30px}
+.strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.strip-item{display:flex;align-items:center;gap:14px;padding:20px 22px;background:var(--cream);border-radius:18px;font-size:14.5px;line-height:1.4}
+.strip-item svg{width:26px;height:26px;flex:0 0 26px;color:var(--sage-deep)}
+
+/* Categories */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.cat{position:relative;border-radius:var(--r);padding:26px 26px 0;min-height:330px;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.cat:hover{transform:translateY(-6px);box-shadow:var(--shadow-sm)}
+.cat h3{font-size:30px}
+.cat p{font-size:14px;color:var(--muted);margin-top:6px}
+.cat .arrow{position:absolute;right:20px;top:22px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.7);display:grid;place-items:center;transition:background .3s}
+.cat:hover .arrow{background:#fff}
+.cat .arrow svg{width:18px;height:18px}
+.cat .art{margin-top:auto;display:flex;justify-content:center}
+.cat .art svg{width:190px;height:auto;margin-bottom:-6px;transition:transform .6s var(--ease)}
+.cat:hover .art svg{transform:translateY(-6px)}
+
+/* Catalog */
+.catalog{background:linear-gradient(180deg,var(--milk),var(--cream) 30%,var(--cream))}
+.toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:34px;flex-wrap:wrap}
+.filters{display:flex;flex-direction:column;gap:14px}
+.fgroup{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fgroup > span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;min-width:96px}
+.chip{height:38px;padding:0 18px;border-radius:999px;border:1px solid var(--line-strong);font-size:14px;background:rgba(255,255,255,.6);transition:all .3s}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--milk)}
+.sort{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.sort select{appearance:none;-webkit-appearance:none;height:42px;border-radius:999px;border:1px solid var(--line-strong);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232f2926' stroke-width='1.4' fill='none'/%3E%3C/svg%3E") no-repeat right 16px center;padding:0 40px 0 18px;font-family:inherit;font-size:14px;color:var(--ink);cursor:pointer;outline:none}
+.found{font-size:14px;color:var(--muted);margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.card{background:#fff;border-radius:var(--r);padding:10px 10px 18px;display:flex;flex-direction:column;border:1px solid var(--line);transition:transform .5s var(--ease),box-shadow .5s var(--ease);animation:cardIn .6s var(--ease) both}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.media{position:relative;border-radius:16px;aspect-ratio:1/1.04;display:grid;place-items:center;cursor:pointer;overflow:hidden}
+.media svg{width:88%;height:auto;transition:transform .7s var(--ease)}
+.card:hover .media svg{transform:scale(1.04) translateY(-4px)}
+.badge{position:absolute;left:12px;top:12px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:#fff;border-radius:999px;padding:6px 11px}
+.badge.new{background:var(--sage-deep);color:#fff}
+.fav{position:absolute;right:10px;top:10px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);display:grid;place-items:center;transition:transform .3s}
+.fav:hover{transform:scale(1.08)}
+.fav svg{width:18px;height:18px;transition:fill .3s,color .3s}
+.fav.on svg{fill:var(--powder-deep);color:var(--powder-deep)}
+.card .info{padding:16px 8px 0;display:flex;flex-direction:column;flex:1}
+.rating{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--muted)}
+.rating svg{width:13px;height:13px;color:#d4a373}
+.rating b{color:var(--ink);font-weight:500}
+.card h3{font-family:'Onest',sans-serif;font-weight:500;font-size:16.5px;line-height:1.3;margin:8px 0 4px;cursor:pointer;letter-spacing:0}
+.card .short{font-size:13.5px;color:var(--muted);line-height:1.4}
+.card .bottom{margin-top:auto;padding-top:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.price{font-size:18px;font-weight:500;white-space:nowrap}
+.price small{font-size:13px;color:var(--muted);font-weight:400;margin-left:4px}
+.add{height:42px;padding:0 18px;border-radius:999px;background:var(--ink);color:var(--milk);font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:background .3s;white-space:nowrap}
+.add svg{width:16px;height:16px}
+.add:hover{background:var(--sage-deep)}
+.add.done{background:var(--sage-deep)}
+.empty{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--muted)}
+.empty b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:28px;color:var(--ink);margin-bottom:6px}
+
+/* Ritual */
+.ritual-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.ritual-photo{position:relative;border-radius:28px;overflow:hidden;height:600px;box-shadow:var(--shadow)}
+.ritual-photo img{width:100%;height:100%;object-fit:cover;object-position:62% 55%}
+.ritual-photo .quote{position:absolute;left:24px;right:24px;bottom:24px;background:rgba(251,248,243,.92);backdrop-filter:blur(8px);border-radius:18px;padding:20px 24px;font-family:'Playfair Display',serif;font-style:italic;font-size:20px;line-height:1.35}
+.steps{margin-top:40px;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:24px 0;border-top:1px solid var(--line)}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step .n{font-family:'Playfair Display',serif;font-size:34px;color:var(--powder-deep);line-height:1}
+.step h3{font-family:'Onest',sans-serif;font-weight:500;font-size:19px;margin-bottom:6px;letter-spacing:0}
+.step p{color:var(--muted);font-size:15px}
+
+/* Consultant */
+.advisor{background:var(--sage-soft)}
+.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.chat{background:#fff;border-radius:26px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;height:540px;overflow:hidden}
+.chat-head{display:flex;align-items:center;gap:14px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.ava{width:46px;height:46px;border-radius:50%;background:linear-gradient(140deg,var(--powder),var(--sage));display:grid;place-items:center;color:#fff;flex:0 0 46px}
+.ava svg{width:22px;height:22px}
+.chat-head b{display:block;font-weight:500;font-size:16px}
+.chat-head span{font-size:13px;color:var(--sage-deep);display:flex;align-items:center;gap:6px}
+.chat-head span::before{content:"";width:7px;height:7px;border-radius:50%;background:#7fb07a}
+.restart{margin-left:auto;font-size:13px;padding:9px 16px;border-radius:999px;border:1px solid var(--line-strong);transition:all .3s;white-space:nowrap}
+.restart:hover{border-color:var(--ink)}
+.chat-body{flex:1;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.msg{max-width:84%;padding:12px 16px;border-radius:18px;font-size:15px;line-height:1.45;animation:msgIn .4s var(--ease) both}
+.msg.bot{background:var(--cream);border-bottom-left-radius:6px;align-self:flex-start}
+.msg.me{background:var(--ink);color:var(--milk);border-bottom-right-radius:6px;align-self:flex-end}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.typing{display:flex;gap:5px;padding:16px 18px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);opacity:.5;animation:dot 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{50%{opacity:1;transform:translateY(-3px)}}
+.opts{display:flex;flex-wrap:wrap;gap:8px;animation:msgIn .4s var(--ease) both}
+.opt{padding:10px 16px;border-radius:999px;border:1px solid var(--sage);color:var(--sage-deep);font-size:14px;background:#fff;transition:all .25s}
+.opt:hover:not(:disabled){background:var(--sage-soft)}
+.opt.pressed{background:var(--sage-deep);color:#fff;border-color:var(--sage-deep);transform:scale(.96)}
+.opt:disabled{cursor:default}
+.opts.used .opt:not(.pressed){opacity:.35}
+.result{background:#fff;border-radius:26px;box-shadow:var(--shadow-sm);padding:26px;display:flex;flex-direction:column;height:540px}
+.result-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:18px}
+.result-head h3{font-size:28px}
+.result-head span{font-size:13px;color:var(--muted);white-space:nowrap}
+.r-list{display:flex;flex-direction:column;gap:12px;flex:1}
+.r-item{display:grid;grid-template-columns:84px 1fr auto;gap:16px;align-items:center;padding:10px;border-radius:18px;border:1px solid var(--line);animation:msgIn .5s var(--ease) both;cursor:pointer}
+.r-item .thumb{width:84px;height:84px;border-radius:14px;display:grid;place-items:center}
+.r-item .thumb svg{width:72px;height:72px}
+.r-item small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-deep);font-weight:600}
+.r-item b{display:block;font-weight:500;font-size:15.5px;line-height:1.3}
+.r-item em{font-style:normal;font-size:13px;color:var(--muted)}
+.r-item .p{font-weight:500;white-space:nowrap;padding-right:8px}
+.r-ph{flex:1;border:1.5px dashed var(--line-strong);border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--muted);padding:30px;gap:14px}
+.r-ph svg{width:48px;height:48px;color:var(--sage)}
+.r-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;margin-top:16px;border-top:1px solid var(--line)}
+.r-foot .sum{font-size:14px;color:var(--muted)}
+.r-foot .sum b{display:block;font-size:22px;color:var(--ink);font-weight:500}
+.r-foot .btn:disabled{opacity:.35;pointer-events:none}
+
+/* Delivery */
+.del-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.del{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.del:hover{transform:translateY(-5px);box-shadow:var(--shadow-sm)}
+.del .ic{width:54px;height:54px;border-radius:16px;background:var(--cream);display:grid;place-items:center;margin-bottom:22px;color:var(--sage-deep)}
+.del .ic svg{width:26px;height:26px}
+.del h3{font-family:'Onest',sans-serif;font-weight:500;font-size:18px;letter-spacing:0;margin-bottom:8px}
+.del p{font-size:14.5px;color:var(--muted)}
+.del .tag{display:inline-block;margin-top:16px;font-size:13px;font-weight:500;color:var(--sage-deep);background:var(--sage-soft);border-radius:999px;padding:6px 12px}
+.pay{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.pay span{border:1px solid var(--line-strong);border-radius:999px;padding:8px 16px;color:var(--ink);background:#fff}
+
+/* Reviews */
+.reviews{background:var(--cream)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.rev{background:#fff;border-radius:var(--r);padding:34px 30px;display:flex;flex-direction:column}
+.rev .stars{display:flex;gap:3px;color:#d4a373;margin-bottom:18px}
+.rev .stars svg{width:16px;height:16px}
+.rev p{font-family:'Playfair Display',serif;font-size:19px;line-height:1.45;flex:1}
+.rev .who{display:flex;align-items:center;gap:14px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.rev .who i{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:500;color:var(--ink)}
+.rev .who b{display:block;font-weight:500;font-size:15px}
+.rev .who span{display:block;font-size:13px;color:var(--muted);line-height:1.45}
+.rev .who .prod{color:var(--sage-deep)}
+
+/* Subscribe */
+.sub-box{background:linear-gradient(120deg,#f1dcd4,#efe4da 55%,#e3e9dc);border-radius:32px;padding:70px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;overflow:hidden}
+.sub-box h2{font-size:clamp(32px,3.6vw,48px)}
+.sub-box h2 em{font-style:italic;color:var(--sage-deep)}
+.sub-box .lead{margin-top:14px}
+.sub-form .row{display:flex;gap:10px;background:#fff;border-radius:999px;padding:6px;box-shadow:var(--shadow-sm)}
+.sub-form input[type=email]{flex:1;min-width:0;border:none;outline:none;background:transparent;padding:0 18px;font-size:15px;color:var(--ink)}
+.consent{display:flex;gap:12px;align-items:flex-start;margin-top:16px;font-size:13px;color:var(--muted);line-height:1.5;cursor:pointer}
+.consent input{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex:0 0 20px;border:1.5px solid var(--line-strong);border-radius:6px;background:#fff;cursor:pointer;margin-top:1px;display:grid;place-items:center;transition:all .2s}
+.consent input:checked{background:var(--sage-deep);border-color:var(--sage-deep)}
+.consent input:checked::after{content:"";width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.consent a{text-decoration:underline;color:var(--ink)}
+.form-note{font-size:13px;margin-top:10px;color:#b05a4a;min-height:20px}
+.sub-ok{display:none;background:#fff;border-radius:22px;padding:26px 28px;box-shadow:var(--shadow-sm)}
+.sub-ok b{font-family:'Playfair Display',serif;font-weight:400;font-size:26px;display:block;margin-bottom:6px}
+.sub-ok.show{display:block}
+
+/* Footer */
+footer{background:var(--ink);color:#d9d1c8;padding:84px 0 34px;margin-top:110px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:48px}
+footer .logo{color:var(--milk);margin-bottom:18px}
+footer p{font-size:14.5px;color:#a89d94;max-width:300px}
+footer h4{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#f3ece2;font-weight:600;margin-bottom:20px}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:11px;font-size:14.5px;color:#b9aea4}
+footer ul a{color:#b9aea4;transition:color .3s}
+footer ul a:hover{color:#fff}
+.foot-bottom{margin-top:64px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px;color:#8f857c}
+.foot-bottom a{color:#d9d1c8;text-decoration:underline}
+
+/* Overlay, modal, drawer */
+.shade{position:fixed;inset:0;background:rgba(47,41,38,.38);backdrop-filter:blur(3px);z-index:200;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.shade.show{opacity:1;visibility:visible}
+.modal{position:fixed;left:50%;top:50%;z-index:210;width:min(980px,calc(100vw - 48px));max-height:calc(100vh - 48px);background:var(--milk);border-radius:28px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;opacity:0;visibility:hidden;transform:translate(-50%,-46%) scale(.98);transition:all .45s var(--ease)}
+.modal.show{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
+.m-media{display:grid;place-items:center;position:relative;min-height:440px}
+.m-media svg{width:76%;max-width:360px;height:auto}
+.m-info{padding:42px 40px;overflow-y:auto}
+.close{position:absolute;right:16px;top:16px;width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center;z-index:2;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.close svg{width:18px;height:18px}
+.m-info .cat-tag{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-deep);font-weight:600}
+.m-info h3{font-size:36px;margin:10px 0 10px}
+.m-info .desc{color:var(--muted);font-size:15.5px;margin:14px 0 22px}
+.vols{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 22px}
+.vol{min-width:84px;padding:10px 16px;border-radius:14px;border:1px solid var(--line-strong);font-size:14px;text-align:center;background:#fff;transition:all .25s}
+.vol small{display:block;color:var(--muted);font-size:12px}
+.vol.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.m-label{font-size:13px;color:var(--muted)}
+.m-buy{display:flex;align-items:center;gap:18px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.m-buy .price{font-size:28px}
+.tabs{display:flex;gap:24px;margin:22px 0 14px;border-bottom:1px solid var(--line)}
+.tab{padding:0 0 12px;font-size:15px;color:var(--muted);position:relative}
+.tab.on{color:var(--ink)}
+.tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--ink)}
+.tab-pane{font-size:14.5px;color:var(--muted);line-height:1.65}
+.tab-pane ul{padding-left:18px}
+.skin-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.skin-tags span{font-size:12.5px;background:var(--sage-soft);color:var(--sage-deep);border-radius:999px;padding:5px 11px}
+
+.drawer{position:fixed;top:0;right:0;bottom:0;width:440px;max-width:100%;background:var(--milk);z-index:220;display:flex;flex-direction:column;transform:translateX(102%);transition:transform .5s var(--ease);box-shadow:-30px 0 60px rgba(47,41,38,.1)}
+.drawer.show{transform:none}
+.d-head{display:flex;align-items:center;justify-content:space-between;padding:24px 26px;border-bottom:1px solid var(--line)}
+.d-head h3{font-size:28px}
+.d-head h3 span{font-family:'Onest',sans-serif;font-size:15px;color:var(--muted);margin-left:6px}
+.d-head .close{position:static;box-shadow:none;background:var(--cream)}
+.ship{padding:18px 26px;border-bottom:1px solid var(--line);font-size:14px}
+.bar{height:6px;border-radius:3px;background:var(--sand);margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-deep));border-radius:3px;transition:width .5s var(--ease)}
+.d-list{flex:1;overflow-y:auto;padding:10px 26px}
+.ci{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.ci .thumb{width:76px;height:76px;border-radius:14px;display:grid;place-items:center}
+.ci .thumb svg{width:66px;height:66px}
+.ci b{font-weight:500;font-size:15px;line-height:1.3;display:block}
+.ci .v{font-size:13px;color:var(--muted)}
+.ci .row{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.qty{display:flex;align-items:center;border:1px solid var(--line-strong);border-radius:999px;height:34px}
+.qty button{width:32px;height:32px;display:grid;place-items:center;font-size:17px}
+.qty span{min-width:22px;text-align:center;font-size:14px}
+.ci .rm{font-size:12.5px;color:var(--muted);text-decoration:underline;margin-top:4px}
+.d-empty{text-align:center;padding:70px 20px;color:var(--muted)}
+.d-empty svg{width:54px;height:54px;color:var(--powder-deep);margin:0 auto 14px}
+.d-empty b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:26px;color:var(--ink);margin-bottom:6px}
+.d-foot{padding:20px 26px 26px;border-top:1px solid var(--line);background:#fff}
+.d-foot .line{display:flex;justify-content:space-between;font-size:14.5px;color:var(--muted);margin-bottom:8px}
+.d-foot .total{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;margin:12px 0 18px}
+.d-foot .total b{font-size:26px;font-weight:500}
+.d-foot .btn{width:100%}
+
+.toast{position:fixed;left:50%;bottom:28px;z-index:300;opacity:0;visibility:hidden;background:var(--ink);color:var(--milk);padding:14px 22px;border-radius:999px;font-size:14px;display:flex;align-items:center;gap:10px;transform:translate(-50%,140%);transition:transform .45s var(--ease),opacity .3s,visibility .3s;max-width:calc(100vw - 32px)}
+.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+.toast span{white-space:nowrap}
+.toast svg{width:18px;height:18px;color:#b8d2ae;flex:0 0 18px}
+
+.hide-m{display:inline}
+.chat-head b .hide-m{display:inline;font-size:inherit;color:inherit}
+#categories{padding-bottom:30px}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* Responsive */
+@media(max-width:1180px){
+  .nav-links{display:none}
+  .burger{display:grid}
+  .nav{gap:20px}
+  .search{margin-left:auto}
+  .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--milk);border-bottom:1px solid var(--line);padding:8px 32px 18px}
+  .nav-links.open a{display:block;padding:12px 0;font-size:16px}
+  .grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:980px){
+  section{padding:84px 0}
+  .hero-grid,.ritual-grid,.adv-grid,.sub-box{grid-template-columns:1fr}
+  .hero-grid{gap:48px}
+  .ritual-grid{gap:44px}
+  .strip-grid,.del-grid{grid-template-columns:repeat(2,1fr)}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .rev-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .hero-card{left:16px}
+  .sub-box{padding:52px 40px;gap:30px}
+  .modal{grid-template-columns:1fr;overflow-y:auto}
+  .m-media{min-height:320px}
+  .m-info{overflow:visible}
+}
+@media(max-width:760px){
+  .container{padding:0 16px}
+  .hide-m,.chat-head b .hide-m{display:none}
+  section{padding:68px 0}
+  .head{margin-bottom:36px}
+  .lead{font-size:15.5px}
+  .topbar{font-size:11.5px;padding:7px 12px}
+  .nav{height:62px;gap:4px}
+  .logo{font-size:21px;letter-spacing:.16em;gap:8px;margin-right:auto}
+  .logo svg{width:22px;height:22px}
+  .nav .search{display:none}
+  .search-toggle{display:grid}
+  .icons{gap:0}
+  .icon-btn{width:40px;height:40px}
+  .icon-btn svg{width:21px;height:21px}
+  .nav-links.open{padding:6px 16px 14px}
+  header.search-open .mobile-search{display:block}
+  .hero{padding:138px 0 56px}
+  .hero h1{font-size:44px}
+  .hero .sub{font-size:16px;margin:18px 0 28px}
+  .hero-actions .btn{flex:1;padding:15px 18px}
+  .hero-stats{gap:0;justify-content:space-between;margin-top:36px;padding-top:24px}
+  .hero-stats b{font-size:27px}
+  .hero-stats span{font-size:12px}
+  .hero-photo{height:440px;border-radius:200px 200px 24px 24px}
+  .hero-card{left:12px;right:12px;bottom:12px;padding:10px 14px 10px 10px}
+  .hero-card .thumb{width:62px;height:62px}
+  .hero-card .thumb svg{width:54px;height:54px}
+  .hero-chip{right:12px;top:auto;bottom:112px;font-size:12px;padding:8px 14px}
+  .strip{padding-bottom:10px}
+  .strip-grid{gap:10px}
+  .strip-item{padding:14px;font-size:13px;gap:10px;flex-direction:column;align-items:flex-start}
+  .strip-item svg{width:22px;height:22px;flex-basis:auto}
+  .cat-grid{gap:12px}
+  .cat{min-height:236px;padding:18px 16px 0;border-radius:18px}
+  .cat h3{font-size:23px}
+  .cat p{font-size:12.5px;line-height:1.4}
+  .cat .arrow{display:none}
+  .cat .art svg{width:130px}
+  .toolbar{flex-direction:column;align-items:stretch;gap:16px;margin-bottom:22px}
+  .fgroup{gap:6px}
+  .fgroup > span{min-width:0;width:100%;font-size:11px}
+  .chip{height:34px;padding:0 13px;font-size:13px}
+  .sort{justify-content:space-between}
+  .sort select{flex:1}
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .card{padding:6px 6px 12px;border-radius:18px}
+  .media{border-radius:13px}
+  .badge{left:8px;top:8px;font-size:9.5px;padding:4px 8px}
+  .fav{right:6px;top:6px;width:32px;height:32px}
+  .fav svg{width:15px;height:15px}
+  .card .info{padding:12px 6px 0}
+  .rating{font-size:12px}
+  .card h3{font-size:14.5px;margin:6px 0 3px}
+  .card .short{font-size:12px}
+  .card .bottom{flex-direction:column;align-items:stretch;gap:10px;padding-top:12px}
+  .price{font-size:16.5px}
+  .add{justify-content:center;height:40px;font-size:13.5px}
+  .ritual-photo{height:400px;border-radius:22px}
+  .ritual-photo .quote{left:12px;right:12px;bottom:12px;font-size:16px;padding:14px 16px}
+  .step{grid-template-columns:48px 1fr;gap:12px;padding:20px 0}
+  .step .n{font-size:28px}
+  .step h3{font-size:17px}
+  .step p{font-size:14px}
+  .adv-grid{gap:14px}
+  .chat{height:470px;border-radius:22px}
+  .chat-head{padding:14px 16px;gap:10px}
+  .ava{width:40px;height:40px;flex-basis:40px}
+  .chat-head b{font-size:15px}
+  .restart{padding:8px 12px;font-size:12.5px}
+  .chat-body{padding:16px;gap:10px}
+  .msg{font-size:14px;max-width:90%}
+  .opt{font-size:13px;padding:9px 13px}
+  .result{height:auto;min-height:470px;padding:18px;border-radius:22px}
+  .result-head h3{font-size:23px}
+  .r-item{grid-template-columns:64px 1fr;gap:12px;padding:8px}
+  .r-item .thumb{width:64px;height:64px}
+  .r-item .thumb svg{width:56px;height:56px}
+  .r-item b{font-size:14.5px}
+  .r-item .p{grid-column:2;padding:0;font-size:14px;margin-top:-6px}
+  .r-foot{flex-direction:column;align-items:stretch}
+  .r-foot .btn{width:100%}
+  .del-grid{grid-template-columns:1fr;gap:12px}
+  .del{padding:22px;display:grid;grid-template-columns:48px 1fr;gap:4px 16px}
+  .del .ic{width:48px;height:48px;margin:0;grid-row:span 3}
+  .del .tag{justify-self:start;margin-top:10px}
+  .rev{padding:26px 22px}
+  .rev p{font-size:17px}
+  .sub-box{padding:36px 22px;border-radius:24px}
+  .sub-form .row{flex-direction:column;border-radius:20px;padding:8px}
+  .sub-form input[type=email]{height:48px;padding:0 12px}
+  .sub-form .btn{width:100%}
+  footer{padding:60px 0 28px;margin-top:68px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:36px 20px}
+  .foot-grid > div:first-child{grid-column:1/-1}
+  .foot-bottom{flex-direction:column;margin-top:44px}
+  .modal{left:0;top:0;width:100%;height:100%;max-height:none;border-radius:0;transform:translateY(30px);display:block}
+  .modal.show{transform:none}
+  .m-media{min-height:300px}
+  .m-media svg{width:62%}
+  .m-info{padding:26px 18px 36px}
+  .m-info h3{font-size:29px}
+  .m-buy{gap:10px}
+  .m-buy .price{font-size:22px}
+  .m-buy .btn{flex:1;padding:14px 16px}
+  .m-buy .icon-btn{flex:0 0 44px;height:44px}
+  .drawer{width:100%}
+  .d-head,.ship,.d-foot{padding-left:18px;padding-right:18px}
+  .d-list{padding:6px 18px}
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="topbar">Бесплатная доставка от 3 500 руб.<span class="hide-m"> и два пробника к каждому заказу</span></div>
+  <div class="container nav">
+    <a href="#top" class="logo" aria-label="AURENNE">
+      <svg viewBox="0 0 32 32" fill="none"><path d="M16 3c6 5 9 10 9 15a9 9 0 0 1-18 0c0-5 3-10 9-15Z" fill="#e9cfc6"/><path d="M16 9c3 3.5 4.6 7 4.6 10.2A4.6 4.6 0 0 1 16 23.8" stroke="#5e7360" stroke-width="1.4" stroke-linecap="round"/></svg>
+      AURENNE
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#catalog">Каталог</a></li>
+      <li><a href="#advisor">Подбор ухода</a></li>
+      <li><a href="#ritual">Ритуал</a></li>
+      <li><a href="#delivery">Доставка</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+    </ul>
+    <label class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+      <input type="search" class="search-input" placeholder="Сыворотка, крем, тонер" aria-label="Поиск по каталогу">
+    </label>
+    <div class="icons">
+      <button class="icon-btn search-toggle" id="searchToggle" aria-label="Поиск">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="favBtn" aria-label="Избранное">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20Z" stroke-linejoin="round"/></svg>
+        <span class="count zero" id="favCount">0</span>
+      </button>
+      <button class="icon-btn" id="cartBtn" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" stroke-linejoin="round"/><path d="M9 10V7a3 3 0 0 1 6 0v3" stroke-linecap="round"/></svg>
+        <span class="count zero" id="cartCount">0</span>
+      </button>
+      <button class="icon-btn burger" id="burger" aria-label="Меню">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-search">
+    <label class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+      <input type="search" class="search-input" placeholder="Поиск по каталогу" aria-label="Поиск по каталогу">
+    </label>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow reveal">Уходовая косметика</span>
+      <h1 class="reveal d1">Мягкий уход<br>для <em>каждого</em><br>дня</h1>
+      <p class="sub reveal d2">Короткие составы, приятные текстуры и ритуал из трех шагов, который легко повторять утром и вечером. Без лишнего, только то, что нужно вашей коже.</p>
+      <div class="hero-actions reveal d2">
+        <a href="#catalog" class="btn btn-dark">Перейти в каталог</a>
+        <a href="#advisor" class="btn btn-light">Подобрать уход</a>
+      </div>
+      <div class="hero-stats reveal d3">
+        <div><b>4.9</b><span>средняя оценка</span></div>
+        <div><b>12 400</b><span>отзывов</span></div>
+        <div><b>96%</b><span>натуральных компонентов</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal d2">
+      <div class="hero-photo">
+        <img src="img/kosmetika/hands-cream.jpg" alt="Девушка наносит крем из баночки">
+      </div>
+      <div class="hero-chip"><i></i>Подходит для чувствительной кожи</div>
+      <div class="hero-card" data-open="2">
+        <div class="thumb" id="heroThumb"></div>
+        <div>
+          <small>Хит недели</small>
+          <strong>Крем с церамидами</strong>
+          <span>от 2 290 руб.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="container strip-grid">
+    <div class="strip-item reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c4 3.5 6 7 6 10a6 6 0 0 1-12 0c0-3 2-6.5 6-10Z"/><path d="M12 10v8" stroke-linecap="round"/></svg>Формулы без отдушек и спирта</div>
+    <div class="strip-item reveal d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" stroke-linejoin="round"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>Доставка от 1 дня по всей России</div>
+    <div class="strip-item reveal d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M12 9v11M4 13h16M12 9c-2-4-6-4-6-1.5S10 9 12 9Zm0 0c2-4 6-4 6-1.5S14 9 12 9Z" stroke-linejoin="round"/></svg>Два пробника в подарок</div>
+    <div class="strip-item reveal d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>Проверено дерматологами</div>
+  </div>
+</div>
+
+<section id="categories">
+  <div class="container">
+    <div class="head reveal">
+      <span class="eyebrow">Категории</span>
+      <h2 class="title">От лица <em>до кончиков</em> волос</h2>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+  <div class="container">
+    <div class="head left reveal">
+      <span class="eyebrow">Каталог</span>
+      <h2 class="title">Бестселлеры <em>AURENNE</em></h2>
+    </div>
+    <div class="toolbar reveal">
+      <div class="filters">
+        <div class="fgroup" id="skinFilter">
+          <span>Тип кожи</span>
+          <button class="chip on" data-v="all">Все</button>
+          <button class="chip" data-v="dry">Сухая</button>
+          <button class="chip" data-v="oily">Жирная</button>
+          <button class="chip" data-v="sens">Чувствительная</button>
+          <button class="chip" data-v="normal">Нормальная</button>
+        </div>
+        <div class="fgroup" id="catFilter">
+          <span>Категория</span>
+          <button class="chip on" data-v="all">Все</button>
+          <button class="chip" data-v="face">Лицо</button>
+          <button class="chip" data-v="body">Тело</button>
+          <button class="chip" data-v="hair">Волосы</button>
+          <button class="chip" data-v="sets">Наборы</button>
+        </div>
+      </div>
+      <label class="sort">Сортировка
+        <select id="sort">
+          <option value="pop">Сначала популярные</option>
+          <option value="asc">Сначала дешевле</option>
+          <option value="desc">Сначала дороже</option>
+          <option value="rate">По рейтингу</option>
+        </select>
+      </label>
+    </div>
+    <div class="found" id="found"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="ritual">
+  <div class="container ritual-grid">
+    <div class="ritual-photo reveal">
+      <img src="img/kosmetika/hands-cream-2.jpg" alt="Девушка в халате набирает крем из баночки" loading="lazy">
+      <div class="quote">Пять минут утром и вечером. Уход, который хочется повторять.</div>
+    </div>
+    <div>
+      <div class="head left reveal" style="margin-bottom:0">
+        <span class="eyebrow">Ритуал</span>
+        <h2 class="title">Три шага к <em>спокойной</em> коже</h2>
+        <p class="lead">Мы не предлагаем десять баночек. Достаточно очистить, напитать и закрепить результат кремом, а остальное ваша кожа сделает сама.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal d1"><div class="n">01</div><div><h3>Очистить</h3><p>Мягкий гель снимает макияж и излишки себума, не стягивая кожу и не нарушая барьер.</p></div></div>
+        <div class="step reveal d2"><div class="n">02</div><div><h3>Напитать</h3><p>Тонер и сыворотка доставляют активы туда, где они нужны: увлажнение, сияние, ровный тон.</p></div></div>
+        <div class="step reveal d3"><div class="n">03</div><div><h3>Запечатать</h3><p>Крем с церамидами удерживает влагу до 48 часов и делает кожу мягкой на весь день.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="advisor" id="advisor">
+  <div class="container">
+    <div class="head reveal">
+      <span class="eyebrow">Подбор ухода</span>
+      <h2 class="title">Соберем ваш ритуал <em>за 3 вопроса</em></h2>
+      <p class="lead">Ответьте на вопросы консультанта, и мы подберем три средства из каталога под тип кожи, задачу и бюджет.</p>
+    </div>
+    <div class="adv-grid reveal">
+      <div class="chat">
+        <div class="chat-head">
+          <div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c4 3.5 6 7 6 10a6 6 0 0 1-12 0c0-3 2-6.5 6-10Z"/></svg></div>
+          <div><b>Консультант<span class="hide-m"> AURENNE</span></b><span>онлайн</span></div>
+          <button class="restart" id="restart">Пройти заново</button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+</section>
+
+<section id="delivery">
+  <div class="container">
+    <div class="head reveal">
+      <span class="eyebrow">Доставка и оплата</span>
+      <h2 class="title">Привезем <em>бережно</em> и быстро</h2>
+      <p class="lead">Каждый заказ собираем вручную, упаковываем в перерабатываемую бумагу и кладем два пробника на выбор.</p>
+    </div>
+    <div class="del-grid">
+      <div class="del reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" stroke-linejoin="round"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></div><h3>Курьер</h3><p>Москва и Санкт-Петербург на следующий день, интервал 3 часа.</p><span class="tag">бесплатно от 3 500 руб.</span></div>
+      <div class="del reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-6 7-11.5a7 7 0 0 0-14 0C5 15 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div><h3>Пункты выдачи</h3><p>Более 30 000 пунктов по России, хранение заказа 7 дней.</p><span class="tag">от 1 дня, от 190 руб.</span></div>
+      <div class="del reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4" stroke-linecap="round"/></svg></div><h3>Оплата</h3><p>Картой на сайте, по СБП или при получении. Чек придет на почту.</p><span class="tag">без комиссии</span></div>
+      <div class="del reveal d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 4v4.5h4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Возврат</h3><p>Не подошло средство? Вернем деньги в течение 14 дней, даже если баночка открыта.</p><span class="tag">14 дней</span></div>
+    </div>
+    <div class="pay reveal">Принимаем: <span>Мир</span><span>Visa</span><span>Mastercard</span><span>СБП</span><span>Наличные курьеру</span></div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="head reveal">
+      <span class="eyebrow">Отзывы</span>
+      <h2 class="title">Нас выбирают <em>за ощущения</em></h2>
+    </div>
+    <div class="rev-grid" id="revGrid"></div>
+  </div>
+</section>
+
+<section id="subscribe" style="padding-bottom:0">
+  <div class="container">
+    <div class="sub-box reveal">
+      <div>
+        <span class="eyebrow">Рассылка</span>
+        <h2>Минус 10% <em>на первый</em> заказ</h2>
+        <p class="lead">Раз в две недели: новинки, советы по уходу и закрытые предложения. Без спама, отписаться можно в один клик.</p>
+      </div>
+      <div>
+        <form class="sub-form" id="subForm" novalidate>
+          <div class="row">
+            <input type="email" id="subEmail" placeholder="Ваш e-mail" aria-label="E-mail">
+            <button type="submit" class="btn btn-dark">Подписаться</button>
+          </div>
+          <label class="consent"><input type="checkbox" id="subConsent"><span>Даю согласие на обработку персональных данных и принимаю <a href="#subscribe">политику конфиденциальности</a></span></label>
+          <div class="form-note" id="subNote"></div>
+        </form>
+        <div class="sub-ok" id="subOk"><b>Спасибо, вы с нами</b>Промокод на скидку 10% уже летит на вашу почту.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3c6 5 9 10 9 15a9 9 0 0 1-18 0c0-5 3-10 9-15Z" fill="#e9cfc6"/><path d="M16 9c3 3.5 4.6 7 4.6 10.2A4.6 4.6 0 0 1 16 23.8" stroke="#5e7360" stroke-width="1.4" stroke-linecap="round"/></svg>AURENNE</a>
+        <p>Уходовая косметика с короткими составами. Разрабатываем формулы вместе с дерматологами и производим небольшими партиями.</p>
+      </div>
+      <div>
+        <h4>Каталог</h4>
+        <ul><li><a href="#catalog" data-cat="face">Лицо</a></li><li><a href="#catalog" data-cat="body">Тело</a></li><li><a href="#catalog" data-cat="hair">Волосы</a></li><li><a href="#catalog" data-cat="sets">Наборы</a></li></ul>
+      </div>
+      <div>
+        <h4>Покупателям</h4>
+        <ul><li><a href="#advisor">Подбор ухода</a></li><li><a href="#delivery">Доставка и оплата</a></li><li><a href="#delivery">Возврат</a></li><li><a href="#reviews">Отзывы</a></li></ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <ul><li><a href="tel:+79000000000">+7 (900) 000-00-00</a></li><li><a href="mailto:hello@aurenne.example">hello@aurenne.example</a></li><li>Ежедневно 9:00-21:00</li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 AURENNE</span>
+      <span>Демо-проект. Бренд, товары и контакты вымышленные. Фото: Wikimedia Commons, авторы в <a href="CREDITS.md">CREDITS.md</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="shade" id="shade"></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <button class="close" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="m-media" id="mMedia"></div>
+  <div class="m-info" id="mInfo"></div>
+</div>
+
+<aside class="drawer" id="drawer" aria-label="Корзина">
+  <div class="d-head">
+    <h3>Корзина<span id="dCount"></span></h3>
+    <button class="close" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="ship" id="ship"></div>
+  <div class="d-list" id="dList"></div>
+  <div class="d-foot" id="dFoot"></div>
+</aside>
+
+<div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.5 4.5L19 7"/></svg><span id="toastText"></span></div>
+
+<script>
+/* ---------- Product packaging (inline SVG) ---------- */
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const mix=(a,b,t)=>{const A=hex(a),B=hex(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+const dk=(c,t)=>mix(c,'#000000',t),lt=(c,t)=>mix(c,'#ffffff',t);
+let uidN=0;
+const cylG=(id,c)=>`<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${dk(c,.2)}"/><stop offset=".13" stop-color="${lt(c,.42)}"/><stop offset=".28" stop-color="${lt(c,.16)}"/><stop offset=".66" stop-color="${c}"/><stop offset=".9" stop-color="${dk(c,.1)}"/><stop offset="1" stop-color="${dk(c,.24)}"/></linearGradient>`;
+const ovG=id=>`<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset=".1" stop-color="#fff" stop-opacity="0"/><stop offset=".19" stop-color="#fff" stop-opacity=".38"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".78" stop-color="#000" stop-opacity=".03"/><stop offset="1" stop-color="#000" stop-opacity=".2"/></linearGradient>`;
+const topG=(id,c)=>`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${lt(c,.3)}"/><stop offset="1" stop-color="${dk(c,.06)}"/></linearGradient>`;
+function lbl(cx,y,name,sub,col,s=1){
+  return `<g fill="${col}" text-anchor="middle"><text x="${cx}" y="${y}" font-family="Playfair Display,serif" font-size="${8.4*s}" letter-spacing="${1.5*s}" dx="${.75*s}">AURENNE</text><rect x="${cx-9*s}" y="${y+5.5*s}" width="${18*s}" height="${.7*s}" opacity=".5"/><text x="${cx}" y="${y+16*s}" font-family="Onest,sans-serif" font-size="${5.2*s}" font-weight="600" letter-spacing="${.7*s}" dx="${.35*s}">${name}</text><text x="${cx}" y="${y+24.5*s}" font-family="Onest,sans-serif" font-size="${4.8*s}" letter-spacing="${.5*s}" opacity=".62">${sub}</text></g>`;
+}
+const ribs=(x,y,w,h,n,o=.07)=>Array.from({length:n},(_,i)=>`<rect x="${(x+(i+.5)*w/n-.4).toFixed(1)}" y="${y}" width=".8" height="${h}" fill="#000" opacity="${o}"/>`).join('');
+
+const PACK={
+  dropper(u,c){
+    const body='M62 124Q62 104 82 102H118Q138 104 138 124V204Q138 216 126 216H74Q62 216 62 204Z';
+    return [cylG(u+'g',c.body)+cylG(u+'c',c.cap)+cylG(u+'b',c.bulb)+ovG(u+'o'),
+    `<path d="${body}" fill="url(#${u}g)"/>
+     <path d="M66 128H134V203Q134 212 125 212H75Q66 212 66 203Z" fill="${dk(c.body,.1)}" opacity=".35"/>
+     <rect x="69" y="138" width="62" height="60" rx="3" fill="${c.label}"/>
+     ${lbl(100,157,c.name,c.sub,c.ink)}
+     <path d="${body}" fill="url(#${u}o)"/>
+     <rect x="67.5" y="112" width="4.5" height="90" rx="2.2" fill="#fff" opacity=".55"/>
+     <rect x="76" y="108" width="1.6" height="22" rx=".8" fill="#fff" opacity=".5"/>
+     <rect x="86" y="94" width="28" height="10" fill="${dk(c.body,.2)}"/>
+     <rect x="81" y="62" width="38" height="34" rx="4" fill="url(#${u}c)"/>${ribs(81,66,38,24,9)}
+     <rect x="79" y="88" width="42" height="9" rx="2.5" fill="url(#${u}c)"/>
+     <path d="M88 64V42Q88 20 100 20Q112 20 112 42V64Z" fill="url(#${u}b)"/>
+     <path d="M92.5 58V42Q92.5 29 98 25" stroke="#fff" stroke-opacity=".7" stroke-width="2.2" fill="none" stroke-linecap="round"/>`,46];
+  },
+  jar(u,c){
+    return [cylG(u+'g',c.body)+cylG(u+'c',c.cap)+ovG(u+'o'),
+    `<rect x="46" y="146" width="108" height="70" rx="14" fill="url(#${u}g)"/>
+     <rect x="46" y="166" width="108" height="34" fill="${c.label}"/>
+     ${lbl(100,180,c.name,c.sub,c.ink,1.05)}
+     <rect x="46" y="146" width="108" height="70" rx="14" fill="url(#${u}o)"/>
+     <rect x="55" y="156" width="5" height="50" rx="2.5" fill="#fff" opacity=".6"/>
+     <rect x="42" y="112" width="116" height="40" rx="9" fill="url(#${u}c)"/>
+     ${ribs(42,116,116,32,22,.05)}
+     <rect x="47" y="115" width="106" height="2" rx="1" fill="#fff" opacity=".4"/>
+     <rect x="51" y="120" width="4" height="26" rx="2" fill="#fff" opacity=".45"/>
+     <rect x="48" y="151" width="104" height="4" fill="#000" opacity=".07"/>`,64];
+  },
+  pump(u,c){
+    const w=c.w||72,L=100-w/2,R=100+w/2,T=c.top||100,H=T-52;
+    const body=`M${L} ${T+20}Q${L} ${T} ${L+20} ${T}H${R-20}Q${R} ${T} ${R} ${T+20}V204Q${R} 216 ${R-12} 216H${L+12}Q${L} 216 ${L} 204Z`;
+    return [cylG(u+'g',c.body)+cylG(u+'c',c.cap)+ovG(u+'o'),
+    `<path d="${body}" fill="url(#${u}g)"/>
+     <rect x="${L+7}" y="${T+30}" width="${w-14}" height="${216-T-48}" rx="3" fill="${c.label}"/>
+     ${lbl(100,T+30+(216-T-48)/2-6,c.name,c.sub,c.ink,w>78?1.1:1)}
+     <path d="${body}" fill="url(#${u}o)"/>
+     <rect x="${L+5}" y="${T+14}" width="4.5" height="${216-T-26}" rx="2.2" fill="#fff" opacity=".5"/>
+     <rect x="96" y="${H+14}" width="8" height="26" fill="${dk(c.cap,.12)}"/>
+     <rect x="83" y="${T-20}" width="34" height="22" rx="3" fill="url(#${u}c)"/>${ribs(83,T-17,34,16,8)}
+     <path d="M82 ${H+4}Q82 ${H} 86 ${H}H121L143 ${H+3}Q147 ${H+5.5} 143 ${H+8}L123 ${H+10}V${H+14}Q123 ${H+17} 120 ${H+17}H86Q82 ${H+17} 82 ${H+13}Z" fill="url(#${u}c)"/>
+     <rect x="86" y="${H+2.5}" width="30" height="1.6" rx=".8" fill="#fff" opacity=".6"/>`,c.w?56:48];
+  },
+  tube(u,c){
+    const body='M54 38H146C146 72 131 150 126 188H74C69 150 54 72 54 38Z';
+    return [cylG(u+'g',c.body)+cylG(u+'c',c.cap)+ovG(u+'o'),
+    `<rect x="75" y="184" width="50" height="32" rx="5" fill="url(#${u}c)"/>${ribs(75,190,50,22,10,.06)}
+     <path d="${body}" fill="url(#${u}g)"/>
+     ${lbl(100,88,c.name,c.sub,c.ink,1.2)}
+     <path d="M66 136H134" stroke="${c.label}" stroke-width="7" stroke-linecap="round"/>
+     <path d="${body}" fill="url(#${u}o)"/>
+     <path d="M63 46C64 84 73 140 78 180" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/>
+     <rect x="52" y="22" width="96" height="18" rx="2" fill="url(#${u}g)"/>${ribs(52,24,96,13,24,.08)}
+     <rect x="52" y="37" width="96" height="3" fill="#000" opacity=".06"/>`,52];
+  },
+  tall(u,c){
+    const body='M66 110Q66 86 90 84H110Q134 86 134 110V204Q134 216 122 216H78Q66 216 66 204Z';
+    const cap=c.flip
+      ?`<rect x="79" y="50" width="42" height="30" rx="10" fill="url(#${u}c)"/><rect x="79" y="60" width="42" height="1.2" fill="#000" opacity=".12"/><rect x="85" y="54" width="4" height="22" rx="2" fill="#fff" opacity=".5"/>`
+      :`<rect x="82" y="30" width="36" height="50" rx="6" fill="url(#${u}c)"/>${ribs(82,34,36,42,8,.05)}<rect x="86" y="34" width="3.5" height="40" rx="1.7" fill="#fff" opacity=".55"/>`;
+    return [cylG(u+'g',c.body)+cylG(u+'c',c.cap)+ovG(u+'o'),
+    `<path d="${body}" fill="url(#${u}g)"/>
+     ${c.label?`<rect x="72" y="122" width="56" height="74" rx="3" fill="${c.label}"/>`:''}
+     ${lbl(100,148,c.name,c.sub,c.ink)}
+     <path d="${body}" fill="url(#${u}o)"/>
+     <rect x="70" y="104" width="4.5" height="100" rx="2.2" fill="#fff" opacity=".5"/>
+     <rect x="88" y="76" width="24" height="10" fill="${dk(c.body,.18)}"/>
+     ${cap}`,44];
+  },
+  set(u,c){
+    const minis=[
+      ['dropper',{body:'#e8c2b5',cap:'#cdb48f',bulb:'#f4eee7',label:'#fbf6f1',ink:'#3a332f',name:'SERUM',sub:'30 ml'},-.5,58],
+      ['tall',{body:'#f1e3dc',cap:'#f7f2ec',label:'#ffffff',ink:'#3a332f',name:'TONER',sub:'100 ml'},37,60],
+      ['tube',{body:'#f6f1ea',cap:'#c9a58f',label:'#efe2d6',ink:'#3a332f',name:'CREAM',sub:'30 ml'},74,64]
+    ].map(([t,cc,x,y])=>{const uu=u+t;const [d,i]=PACK[t](uu,cc);return [d,`<g transform="translate(${x} ${y}) scale(.52)">${i}</g>`]});
+    return [cylG(u+'g',c.body)+cylG(u+'f',c.front)+minis.map(m=>m[0]).join(''),
+    `<rect x="32" y="110" width="136" height="106" rx="6" fill="url(#${u}g)"/>
+     <rect x="38" y="116" width="124" height="14" fill="#000" opacity=".1"/>
+     ${minis.map(m=>m[1]).join('')}
+     <rect x="28" y="160" width="144" height="58" rx="6" fill="url(#${u}f)"/>
+     <rect x="28" y="160" width="144" height="3" rx="1.5" fill="#fff" opacity=".6"/>
+     ${lbl(100,182,c.name,c.sub,c.ink,1.15)}`,72];
+  }
+};
+const THUMB={dropper:'24 14 152 210',jar:'28 90 144 140',pump:'20 26 160 200',tube:'20 14 160 210',tall:'22 24 156 200',set:'14 50 172 176'};
+function makeSVG(p,thumb){
+  const u='s'+(++uidN);
+  const [defs,inner,rx]=PACK[p.pack](u,p.c);
+  return `<svg viewBox="${thumb?THUMB[p.pack]:'0 0 200 240'}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>${defs}<filter id="${u}sh" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="4.5"/></filter></defs><ellipse cx="100" cy="219" rx="${rx}" ry="7" fill="#5b4038" opacity=".22" filter="url(#${u}sh)"/>${inner}</svg>`;
+}
+
+/* ---------- Data ---------- */
+const SKIN={dry:'Сухая',oily:'Жирная',sens:'Чувствительная',normal:'Нормальная'};
+const CAT={face:'Лицо',body:'Тело',hair:'Волосы',sets:'Наборы'};
+const products=[
+  {id:1,name:'Сыворотка с ниацинамидом',short:'Ниацинамид 10% и цинк',cat:'face',skin:['oily','normal'],tasks:['pores','glow'],step:3,rating:4.9,rev:214,pop:1,badge:'Хит',bg:'#f4e4dd',
+   vols:[{v:'30 мл',p:1890},{v:'50 мл',p:2790}],pack:'dropper',
+   c:{body:'#e3b7a8',cap:'#cdb48f',bulb:'#f4eee7',label:'#fbf6f1',ink:'#3a332f',name:'NIACINAMIDE',sub:'10% serum, 30 ml'},
+   desc:'Легкая сыворотка выравнивает тон, сужает поры и делает кожу матовой без пересушивания. Впитывается за минуту, не оставляет пленки.',
+   sostav:'Вода, ниацинамид 10%, пидолат цинка 1%, глицерин, пантенол, экстракт зеленого чая, гиалуроновая кислота, ксантановая камедь.',
+   use:'Утром и вечером нанесите 3-4 капли на очищенную кожу лица после тонера. Затем нанесите крем.'},
+  {id:2,name:'Крем с церамидами',short:'Восстанавливает барьер',cat:'face',skin:['dry','sens','normal'],tasks:['hydra','calm'],step:4,rating:4.8,rev:189,pop:2,badge:'Хит',bg:'#e7ede2',
+   vols:[{v:'50 мл',p:2290},{v:'100 мл',p:3890}],pack:'jar',
+   c:{body:'#f8f4ee',cap:'#a7b79f',label:'#f8f4ee',ink:'#3a332f',name:'CERAMIDE CREAM',sub:'50 ml'},
+   desc:'Плотный, но тающий крем с тремя видами церамидов и скваланом. Удерживает влагу до 48 часов и успокаивает стянутую кожу.',
+   sostav:'Вода, сквалан, масло ши, церамиды NP, AP, EOP, холестерин, глицерин, пантенол, аллантоин, токоферол.',
+   use:'Вечером или утром нанесите небольшое количество на лицо и шею легкими похлопывающими движениями.'},
+  {id:3,name:'Мягкий гель для умывания',short:'Для ежедневного очищения',cat:'face',skin:['dry','oily','sens','normal'],tasks:['pores','calm','hydra'],step:1,rating:4.7,rev:302,pop:3,badge:'',bg:'#f1ece4',
+   vols:[{v:'150 мл',p:1290},{v:'300 мл',p:2090}],pack:'pump',
+   c:{body:'#d8e1d1',cap:'#f6f2ec',label:'#fbfaf6',ink:'#3a332f',name:'GENTLE GEL',sub:'cleanser 150 ml'},
+   desc:'Нежный гель с pH 5.5 бережно смывает макияж и солнцезащитный крем. Кожа остается чистой и мягкой, без ощущения стянутости.',
+   sostav:'Вода, кокоил глицинат натрия, глицерин, бетаин, экстракт центеллы, пантенол, лимонная кислота.',
+   use:'Вспеньте 1-2 нажатия во влажных ладонях, помассируйте лицо 30 секунд и смойте теплой водой.'},
+  {id:4,name:'Тонер с центеллой',short:'Увлажняет и успокаивает',cat:'face',skin:['dry','sens','normal'],tasks:['calm','hydra'],step:2,rating:4.8,rev:97,pop:4,badge:'Новинка',bg:'#f6ebe5',
+   vols:[{v:'200 мл',p:1590}],pack:'tall',
+   c:{body:'#efd6cc',cap:'#f7f3ee',label:'#fffdfa',ink:'#3a332f',name:'CICA TONER',sub:'200 ml'},
+   desc:'Тонер-эссенция с центеллой азиатской и пантенолом снимает покраснения и готовит кожу к сыворотке. Без спирта и отдушек.',
+   sostav:'Экстракт центеллы азиатской 40%, вода, глицерин, пантенол 2%, бета-глюкан, аллантоин, мадекассозид.',
+   use:'Нанесите на ладони и прижмите к лицу или протрите ватным диском после умывания.'},
+  {id:5,name:'Крем для рук Молоко и овес',short:'Питание без липкости',cat:'body',skin:['dry','oily','sens','normal'],tasks:['hydra'],step:5,rating:4.9,rev:411,pop:5,badge:'',bg:'#f3ebe0',
+   vols:[{v:'75 мл',p:690},{v:'150 мл',p:1090}],pack:'tube',
+   c:{body:'#f5ede1',cap:'#c9a58f',label:'#ead9c7',ink:'#3a332f',name:'HAND CREAM',sub:'milk & oat 75 ml'},
+   desc:'Нежный крем с овсяным молочком и маслом ши. Мгновенно впитывается и оставляет едва уловимый молочный аромат.',
+   sostav:'Вода, экстракт овса, масло ши, глицерин, масло сладкого миндаля, мочевина 5%, токоферол.',
+   use:'Наносите на руки по мере необходимости, особенно после мытья рук и перед сном.'},
+  {id:6,name:'Молочко для тела с маслом ши',short:'Мягкость на 24 часа',cat:'body',skin:['dry','sens','normal'],tasks:['hydra','calm'],step:6,rating:4.7,rev:156,pop:6,badge:'',bg:'#f5e5de',
+   vols:[{v:'250 мл',p:1490},{v:'500 мл',p:2390}],pack:'pump',
+   c:{body:'#e6c5b8',cap:'#f8f4ee',label:'#fbf6f1',ink:'#3a332f',name:'BODY MILK',sub:'shea 250 ml',w:86,top:88},
+   desc:'Легкое молочко быстро впитывается и не оставляет следов на одежде. Масло ши и ниацинамид делают кожу ровной и бархатной.',
+   sostav:'Вода, масло ши, масло жожоба, глицерин, ниацинамид 2%, пантенол, экстракт хлопка.',
+   use:'После душа нанесите на слегка влажную кожу тела массажными движениями.'},
+  {id:7,name:'Шампунь с протеинами риса',short:'Объем и мягкость',cat:'hair',skin:['dry','oily','sens','normal'],tasks:['hydra'],step:7,rating:4.6,rev:128,pop:7,badge:'',bg:'#e6ebe0',
+   vols:[{v:'250 мл',p:1190},{v:'500 мл',p:1890}],pack:'tall',
+   c:{body:'#a9b9a1',cap:'#f6f1ea',label:'',ink:'#ffffff',name:'RICE SHAMPOO',sub:'250 ml',flip:true},
+   desc:'Бессульфатный шампунь с протеинами риса и бетаином. Очищает кожу головы, придает объем у корней и не утяжеляет длину.',
+   sostav:'Вода, кокоглюкозид, бетаин, гидролизованные протеины риса, пантенол, экстракт розмарина, лимонная кислота.',
+   use:'Нанесите на влажные волосы, вспеньте массажными движениями и смойте. При необходимости повторите.'},
+  {id:8,name:'Набор Утро и вечер',short:'Сыворотка, тонер и крем',cat:'sets',skin:['dry','sens','normal'],tasks:['hydra','glow'],step:8,rating:5.0,rev:64,pop:8,badge:'Подарок',bg:'#ece8e0',
+   vols:[{v:'3 средства',p:4290}],pack:'set',
+   c:{body:'#93a48b',front:'#f4ede3',ink:'#3a332f',name:'DAY & NIGHT RITUAL',sub:'3 travel size'},
+   desc:'Три любимых средства в дорожном формате в подарочной коробке. Хватит на месяц ежедневного ухода, удобно взять в поездку.',
+   sostav:'Сыворотка с ниацинамидом 30 мл, тонер с центеллой 100 мл, крем с церамидами 30 мл. Подарочная коробка из переработанного картона.',
+   use:'Утром: тонер, сыворотка, крем. Вечером: тонер и крем. Сыворотку вечером можно чередовать.'}
+];
+const byId=id=>products.find(p=>p.id===id);
+const rub=n=>n.toLocaleString('ru-RU')+' руб.';
+const star='<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8Z"/></svg>';
+const bagIco='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" stroke-linejoin="round"/><path d="M9 10V7a3 3 0 0 1 6 0v3" stroke-linecap="round"/></svg>';
+const heartIco='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20Z" stroke-linejoin="round"/></svg>';
+const arrowIco='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+
+/* ---------- Header ---------- */
+const header=document.getElementById('header');
+const onScroll=()=>header.classList.toggle('scrolled',window.scrollY>20);
+window.addEventListener('scroll',onScroll);onScroll();
+const navLinks=document.getElementById('navLinks');
+document.getElementById('burger').addEventListener('click',()=>{navLinks.classList.toggle('open');header.classList.remove('search-open')});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+document.getElementById('searchToggle').addEventListener('click',()=>{
+  header.classList.toggle('search-open');navLinks.classList.remove('open');
+  if(header.classList.contains('search-open'))header.querySelector('.mobile-search input').focus();
+});
+
+/* ---------- Categories ---------- */
+const catTiles=[['face','Лицо','Сыворотки, кремы, тонеры',1,'#f4e4dd'],['body','Тело','Молочко и крем для рук',6,'#f3ebe0'],['hair','Волосы','Бессульфатный уход',7,'#e6ebe0'],['sets','Наборы','Подарки и дорожные форматы',8,'#efe7dc']];
+document.getElementById('catGrid').innerHTML=catTiles.map(([k,t,d,pid,bg],i)=>`<div class="cat reveal${i?' d'+i:''}" data-cat="${k}" style="background:${bg}"><h3>${t}</h3><p>${d}</p><span class="arrow">${arrowIco}</span><div class="art">${makeSVG(byId(pid))}</div></div>`).join('');
+document.getElementById('heroThumb').innerHTML=makeSVG(byId(2),1);
+
+/* ---------- Catalog ---------- */
+const state={skin:'all',cat:'all',sort:'pop',q:''};
+const fav=new Set();
+const grid=document.getElementById('grid');
+function cardHTML(p,i){
+  return `<article class="card" style="animation-delay:${i*.06}s">
+    <div class="media" style="background:${p.bg}" data-open="${p.id}">
+      ${p.badge?`<span class="badge${p.badge==='Новинка'?' new':''}">${p.badge}</span>`:''}
+      <button class="fav${fav.has(p.id)?' on':''}" data-fav="${p.id}" aria-label="В избранное">${heartIco}</button>
+      ${makeSVG(p)}
+    </div>
+    <div class="info">
+      <div class="rating">${star}<b>${p.rating.toFixed(1)}</b>(${p.rev})</div>
+      <h3 data-open="${p.id}">${p.name}</h3>
+      <div class="short">${p.short}, ${p.vols[0].v.replace(' ','&nbsp;')}</div>
+      <div class="bottom">
+        <div class="price">${rub(p.vols[0].p)}</div>
+        <button class="add" data-add="${p.id}">${bagIco}В корзину</button>
+      </div>
+    </div>
+  </article>`;
+}
+function renderGrid(){
+  const q=state.q.trim().toLowerCase();
+  let list=products.filter(p=>(state.skin==='all'||p.skin.includes(state.skin))&&(state.cat==='all'||p.cat===state.cat)&&(!q||(p.name+' '+p.short+' '+CAT[p.cat]).toLowerCase().includes(q)));
+  const s={pop:(a,b)=>a.pop-b.pop,asc:(a,b)=>a.vols[0].p-b.vols[0].p,desc:(a,b)=>b.vols[0].p-a.vols[0].p,rate:(a,b)=>b.rating-a.rating||b.rev-a.rev}[state.sort];
+  list.sort(s);
+  const w=n=>n%10===1&&n%100!==11?'средство':(n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?'средства':'средств');
+  document.getElementById('found').textContent=`Найдено ${list.length} ${w(list.length)}`;
+  grid.innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty"><b>Ничего не нашлось</b>Попробуйте изменить фильтры или запрос.</div>';
+}
+function setChip(groupId,val){document.querySelectorAll('#'+groupId+' .chip').forEach(c=>c.classList.toggle('on',c.dataset.v===val))}
+document.getElementById('skinFilter').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;state.skin=c.dataset.v;setChip('skinFilter',state.skin);renderGrid()});
+document.getElementById('catFilter').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;state.cat=c.dataset.v;setChip('catFilter',state.cat);renderGrid()});
+document.getElementById('sort').addEventListener('change',e=>{state.sort=e.target.value;renderGrid()});
+document.querySelectorAll('.search-input').forEach(inp=>inp.addEventListener('input',e=>{
+  state.q=e.target.value;document.querySelectorAll('.search-input').forEach(o=>{if(o!==e.target)o.value=e.target.value});renderGrid();
+}));
+document.querySelectorAll('.search-input').forEach(inp=>inp.addEventListener('keydown',e=>{if(e.key==='Enter'){document.getElementById('catalog').scrollIntoView({behavior:'smooth'})}}));
+document.querySelectorAll('[data-cat]').forEach(el=>el.addEventListener('click',e=>{
+  state.cat=el.dataset.cat;setChip('catFilter',state.cat);renderGrid();
+  if(el.tagName!=='A'){document.getElementById('catalog').scrollIntoView({behavior:'smooth'})}
+}));
+renderGrid();
+
+/* ---------- Favorites, cart buttons, modal open (delegation) ---------- */
+const favCount=document.getElementById('favCount'),cartCount=document.getElementById('cartCount');
+function bump(el){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump')}
+document.addEventListener('click',e=>{
+  const f=e.target.closest('[data-fav]');
+  if(f){e.stopPropagation();const id=+f.dataset.fav;fav.has(id)?fav.delete(id):fav.add(id);
+    document.querySelectorAll(`[data-fav="${id}"]`).forEach(b=>b.classList.toggle('on',fav.has(id)));
+    favCount.textContent=fav.size;favCount.classList.toggle('zero',!fav.size);bump(favCount);
+    toast(fav.has(id)?'Добавлено в избранное':'Убрано из избранного');return}
+  const a=e.target.closest('[data-add]');
+  if(a){const id=+a.dataset.add;addToCart(id,0,1);a.classList.add('done');a.innerHTML=a.innerHTML.replace('В корзину','Добавлено');
+    setTimeout(()=>{a.classList.remove('done');a.innerHTML=a.innerHTML.replace('Добавлено','В корзину')},1600);return}
+  const o=e.target.closest('[data-open]');
+  if(o){openModal(+o.dataset.open)}
+});
+
+/* ---------- Modal ---------- */
+const modal=document.getElementById('modal'),shade=document.getElementById('shade'),drawer=document.getElementById('drawer');
+let mState={id:1,vol:0,tab:'sostav'};
+function renderModal(){
+  const p=byId(mState.id);
+  document.getElementById('mInfo').innerHTML=`
+    <span class="cat-tag">${CAT[p.cat]}</span>
+    <h3>${p.name}</h3>
+    <div class="rating">${star}<b>${p.rating.toFixed(1)}</b>${p.rev} отзывов</div>
+    <p class="desc">${p.desc}</p>
+    <div class="m-label">Объем</div>
+    <div class="vols">${p.vols.map((v,i)=>`<button class="vol${i===mState.vol?' on':''}" data-vol="${i}">${v.v}<small>${rub(v.p)}</small></button>`).join('')}</div>
+    <div class="m-buy">
+      <div class="price">${rub(p.vols[mState.vol].p)}</div>
+      <button class="btn btn-dark" id="mAdd">${bagIco}В корзину</button>
+      <button class="icon-btn fav${fav.has(p.id)?' on':''}" data-fav="${p.id}" aria-label="В избранное" style="position:static;background:var(--cream)">${heartIco}</button>
+    </div>
+    <div class="tabs">
+      <button class="tab${mState.tab==='sostav'?' on':''}" data-tab="sostav">Состав</button>
+      <button class="tab${mState.tab==='use'?' on':''}" data-tab="use">Применение</button>
+      <button class="tab${mState.tab==='skin'?' on':''}" data-tab="skin">Кому подходит</button>
+    </div>
+    <div class="tab-pane">${mState.tab==='sostav'?p.sostav:mState.tab==='use'?p.use:`Типы кожи:<div class="skin-tags">${p.skin.map(s=>`<span>${SKIN[s]}</span>`).join('')}</div>`}</div>`;
+}
+function openModal(id){
+  mState={id,vol:0,tab:'sostav'};
+  const p=byId(id);
+  const media=document.getElementById('mMedia');media.style.background=p.bg;media.innerHTML=makeSVG(p);
+  renderModal();modal.scrollTop=0;
+  modal.classList.add('show');shade.classList.add('show');document.body.classList.add('lock');
+}
+document.getElementById('mInfo').addEventListener('click',e=>{
+  const v=e.target.closest('[data-vol]');if(v){mState.vol=+v.dataset.vol;renderModal();return}
+  const t=e.target.closest('[data-tab]');if(t){mState.tab=t.dataset.tab;renderModal();return}
+  if(e.target.closest('#mAdd')){addToCart(mState.id,mState.vol,1);closeAll();setTimeout(openCart,250)}
+});
+function closeAll(){modal.classList.remove('show');drawer.classList.remove('show');shade.classList.remove('show');document.body.classList.remove('lock')}
+shade.addEventListener('click',closeAll);
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeAll));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+
+/* ---------- Cart ---------- */
+const FREE=3500,SHIP=390;
+let cart=[];
+function addToCart(id,vol,qty){
+  const it=cart.find(x=>x.id===id&&x.vol===vol);
+  it?it.qty+=qty:cart.push({id,vol,qty});
+  renderCart();bump(cartCount);
+  toast('Добавлено в корзину');
+}
+function renderCart(){
+  const n=cart.reduce((s,x)=>s+x.qty,0);
+  const sum=cart.reduce((s,x)=>s+byId(x.id).vols[x.vol].p*x.qty,0);
+  cartCount.textContent=n;cartCount.classList.toggle('zero',!n);
+  document.getElementById('dCount').textContent=n?n:'';
+  const left=FREE-sum;
+  document.getElementById('ship').innerHTML=(left>0?`До бесплатной доставки осталось <b>${rub(left)}</b>`:'<b>Доставка бесплатная</b>, спасибо за заказ!')+`<div class="bar"><i style="width:${Math.min(100,sum/FREE*100)}%"></i></div>`;
+  const list=document.getElementById('dList'),foot=document.getElementById('dFoot');
+  if(!cart.length){
+    list.innerHTML=`<div class="d-empty">${bagIco}<b>Корзина пуста</b>Загляните в каталог или пройдите подбор ухода.</div>`;
+    foot.innerHTML=`<a href="#catalog" class="btn btn-dark" data-close-link>Перейти в каталог</a>`;
+    foot.querySelector('a').addEventListener('click',closeAll);return;
+  }
+  list.innerHTML=cart.map((x,i)=>{const p=byId(x.id);return `<div class="ci">
+    <div class="thumb" style="background:${p.bg}">${makeSVG(p,1)}</div>
+    <div><b>${p.name}</b><div class="v">${p.vols[x.vol].v}</div>
+      <div class="row"><div class="qty"><button data-q="${i}" data-d="-1" aria-label="Меньше">−</button><span>${x.qty}</span><button data-q="${i}" data-d="1" aria-label="Больше">+</button></div><div class="price" style="font-size:16px">${rub(p.vols[x.vol].p*x.qty)}</div></div>
+      <button class="rm" data-rm="${i}">Удалить</button></div></div>`}).join('');
+  const ship=left>0?SHIP:0;
+  foot.innerHTML=`<div class="line"><span>Товары</span><span>${rub(sum)}</span></div><div class="line"><span>Доставка</span><span>${ship?rub(ship):'Бесплатно'}</span></div><div class="total"><span>Итого</span><b>${rub(sum+ship)}</b></div><button class="btn btn-dark" id="checkout">Оформить заказ</button>`;
+  document.getElementById('checkout').addEventListener('click',()=>toast('Демо-версия: оформление заказа отключено'));
+}
+document.getElementById('dList').addEventListener('click',e=>{
+  const q=e.target.closest('[data-q]');if(q){const it=cart[+q.dataset.q];it.qty+=+q.dataset.d;if(it.qty<1)cart.splice(+q.dataset.q,1);renderCart();return}
+  const r=e.target.closest('[data-rm]');if(r){cart.splice(+r.dataset.rm,1);renderCart()}
+});
+function openCart(){drawer.classList.add('show');shade.classList.add('show');document.body.classList.add('lock')}
+document.getElementById('cartBtn').addEventListener('click',openCart);
+document.getElementById('favBtn').addEventListener('click',()=>{
+  if(!fav.size){toast('В избранном пока пусто');return}
+  state.q='';document.querySelectorAll('.search-input').forEach(i=>i.value='');
+  state.skin='all';state.cat='all';setChip('skinFilter','all');setChip('catFilter','all');renderGrid();
+  document.getElementById('catalog').scrollIntoView({behavior:'smooth'});toast(`В избранном: ${fav.size}`);
+});
+renderCart();
+
+/* ---------- Toast ---------- */
+const toastEl=document.getElementById('toast');let toastT;
+function toast(t){document.getElementById('toastText').textContent=t;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>toastEl.classList.remove('show'),2000)}
+
+/* ---------- Advisor ---------- */
+const Q=[
+  {k:'skin',text:'Здравствуйте! Я помогу собрать уход за 3 вопроса. Какой у вас тип кожи?',opts:[['dry','Сухая'],['oily','Жирная'],['sens','Чувствительная'],['normal','Нормальная']]},
+  {k:'task',text:'Поняла. Какая задача сейчас главная?',opts:[['hydra','Увлажнение'],['glow','Сияние и ровный тон'],['pores','Чистые поры'],['calm','Снять раздражение']]},
+  {k:'budget',text:'И последний вопрос: какой бюджет на подборку?',opts:[['4000','До 4 000 руб.'],['6000','До 6 000 руб.'],['99999','Не важно']]}
+];
+const STEP={1:'Очищение',2:'Тонизирование',3:'Сыворотка',4:'Увлажнение',5:'Уход за руками',6:'Уход за телом'};
+const chatBody=document.getElementById('chatBody'),result=document.getElementById('result');
+let adv={i:0,ans:{},timers:[],picks:[],busy:false};
+const later=(fn,ms)=>adv.timers.push(setTimeout(fn,ms));
+function scrollChat(){chatBody.scrollTop=chatBody.scrollHeight}
+function addMsg(text,who){const m=document.createElement('div');m.className='msg '+who;m.textContent=text;chatBody.appendChild(m);scrollChat();return m}
+function botSay(text,cb,delay=420){
+  const t=document.createElement('div');t.className='msg bot typing';t.innerHTML='<i></i><i></i><i></i>';chatBody.appendChild(t);scrollChat();
+  later(()=>{t.remove();addMsg(text,'bot');cb&&cb()},delay);
+}
+function ask(){
+  const q=Q[adv.i];
+  botSay(q.text,()=>{
+    const box=document.createElement('div');box.className='opts';
+    box.innerHTML=q.opts.map(([v,l])=>`<button class="opt" data-v="${v}">${l}</button>`).join('');
+    box.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b||box.classList.contains('used')||adv.busy)return;choose(box,b)});
+    chatBody.appendChild(box);scrollChat();
+  });
+}
+function choose(box,b){
+  box.classList.add('used');b.classList.add('pressed');box.querySelectorAll('.opt').forEach(o=>o.disabled=true);
+  const q=Q[adv.i];adv.ans[q.k]=b.dataset.v;
+  later(()=>{addMsg(b.textContent,'me');adv.i++;
+    if(adv.i<Q.length)later(ask,200);
+    else later(()=>botSay('Готово! Собрала для вас ритуал из трех средств. Можно положить всё в корзину одной кнопкой.',showResult,500),200);
+  },220);
+}
+function pick(skin,task,budget){
+  const pool=products.filter(p=>p.cat==='face'||p.cat==='body');
+  const sc=p=>(p.skin.includes(skin)?3:0)+(p.tasks.includes(task)?4:0)+(p.cat==='face'?2.5:0)+p.rating;
+  const sorted=[...pool].sort((a,b)=>sc(b)-sc(a));
+  const res=[];let sum=0;
+  for(const p of sorted){if(res.length<3&&sum+p.vols[0].p<=budget){res.push(p);sum+=p.vols[0].p}}
+  for(const p of [...pool].sort((a,b)=>a.vols[0].p-b.vols[0].p)){if(res.length<3&&!res.includes(p))res.push(p)}
+  return res.sort((a,b)=>a.step-b.step);
+}
+function showPlaceholder(){
+  result.innerHTML=`<div class="result-head"><h3>Ваша подборка</h3><span>3 средства</span></div>
+  <div class="r-ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 6c8 7 12 14 12 20a12 12 0 0 1-24 0c0-6 4-13 12-20Z"/><path d="M24 18v18M18 28l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>Ответьте на вопросы консультанта,<br>и здесь появится ваш ритуал</div>
+  <div class="r-foot"><div class="sum">Итого<b>0 руб.</b></div><button class="btn btn-sage" disabled>Положить всё в корзину</button></div>`;
+}
+function showResult(){
+  const a=adv.ans;adv.picks=pick(a.skin,a.task,+a.budget);
+  const sum=adv.picks.reduce((s,p)=>s+p.vols[0].p,0);
+  result.innerHTML=`<div class="result-head"><h3>Ваш ритуал</h3><span>${SKIN[a.skin].toLowerCase()} кожа</span></div>
+  <div class="r-list">${adv.picks.map((p,i)=>`<div class="r-item" data-open="${p.id}" style="animation-delay:${i*.15}s"><div class="thumb" style="background:${p.bg}">${makeSVG(p,1)}</div><div><small>Шаг ${i+1}. ${STEP[p.step]||'Уход'}</small><b>${p.name}</b><em>${p.vols[0].v}</em></div><div class="p">${rub(p.vols[0].p)}</div></div>`).join('')}</div>
+  <div class="r-foot"><div class="sum">Итого за ритуал<b>${rub(sum)}</b></div><button class="btn btn-sage" id="addAll">${bagIco}Положить всё в корзину</button></div>`;
+  document.getElementById('addAll').addEventListener('click',()=>{adv.picks.forEach(p=>{const it=cart.find(x=>x.id===p.id&&x.vol===0);it?it.qty++:cart.push({id:p.id,vol:0,qty:1})});renderCart();bump(cartCount);toast('Ритуал добавлен в корзину');setTimeout(openCart,300)});
+}
+function resetAdvisor(){adv.timers.forEach(clearTimeout);adv={i:0,ans:{},timers:[],picks:[],busy:false};chatBody.innerHTML='';showPlaceholder()}
+function startManual(){resetAdvisor();ask()}
+document.getElementById('restart').addEventListener('click',startManual);
+
+/* Demo run: plays once when the block is in view */
+function runDemo(){
+  resetAdvisor();adv.busy=true;
+  const answers=['dry','hydra','6000'];
+  const press=k=>{
+    const box=chatBody.querySelector('.opts:last-of-type');
+    const b=box&&box.querySelector(`.opt[data-v="${answers[k]}"]`);
+    if(!b)return;adv.busy=false;choose(box,b);adv.busy=true;
+  };
+  ask();
+  later(()=>press(0),1200);
+  later(()=>press(1),2550);
+  later(()=>press(2),3900);
+  later(()=>{adv.busy=false},4200);
+}
+showPlaceholder();
+let demoDone=false;
+const advIO=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!demoDone){demoDone=true;advIO.disconnect();setTimeout(runDemo,300)}})},{threshold:.35});
+advIO.observe(document.querySelector('.adv-grid'));
+
+/* ---------- Reviews ---------- */
+const reviews=[
+  ['Анна, 29 лет','сухая кожа','Крем с церамидами','Впервые за несколько зим кожа не шелушится. Текстура плотная, но тает за минуту, утром лицо мягкое и спокойное.','#f4e4dd'],
+  ['Марина, 34 года','комбинированная кожа','Сыворотка с ниацинамидом','Поры стали заметно меньше через три недели, а к обеду лицо больше не блестит. Пипетка удобная, флакон очень красивый.','#e6ebe0'],
+  ['Екатерина, 41 год','чувствительная кожа','Набор Утро и вечер','Взяла набор в поездку и осталась на всей линейке. Ничего не щиплет, покраснения ушли, а упаковка выглядит как подарок.','#f3ebe0']
+];
+document.getElementById('revGrid').innerHTML=reviews.map(([n,s,p,t,bg],i)=>`<div class="rev reveal${i?' d'+i:''}"><div class="stars">${star.repeat(5)}</div><p>${t}</p><div class="who"><i style="background:${bg}">${n[0]}</i><div><b>${n}</b><span>${s}</span><span class="prod">${p}</span></div></div></div>`).join('');
+
+/* ---------- Subscribe ---------- */
+document.getElementById('subForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const em=document.getElementById('subEmail').value.trim(),ok=document.getElementById('subConsent').checked,note=document.getElementById('subNote');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){note.textContent='Проверьте адрес почты';return}
+  if(!ok){note.textContent='Нужно согласие на обработку персональных данных';return}
+  note.textContent='';e.target.style.display='none';document.getElementById('subOk').classList.add('show');
+});
+
+/* ---------- Reveal ---------- */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

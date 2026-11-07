@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Демо-сайты: лендинги и визитки</title>
-<meta name="description" content="Адаптивные демо-лендинги для сферы услуг: стоматология, автосервис, строительная компания, SaaS-сервис.">
+<title>Демо-сайты: лендинги и магазины</title>
+<meta name="description" content="Адаптивные демо-сайты: стоматология, автосервис, строительная компания, SaaS-сервис, магазин косметики, ресторан, глэмпинг, Telegram-бот.">
 <style>
   :root { --bg:#f6f5f2; --card:#fff; --text:#1d1d1f; --muted:#6b6b70; --accent:#2f6f5e; }
   * { box-sizing:border-box; }
@@ -20,6 +20,13 @@
   .body h2 { font-size:19px; margin:0 0 4px; }
   .body p { margin:0; color:var(--muted); font-size:15px; }
   .tag { display:inline-block; margin-top:10px; font-size:13px; color:var(--accent); }
+  .videos { max-width:1100px; margin:0 auto; padding:0 16px 48px; }
+  .videos h2 { font-size:clamp(20px,3vw,26px); margin:0 0 16px; }
+  .vgrid { display:grid; gap:24px; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); }
+  .vgrid figure { margin:0; background:var(--card); border-radius:14px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.05); }
+  .vgrid video { width:100%; aspect-ratio:16/10; display:block; background:#e9e7e2; object-fit:cover; }
+  .vgrid figcaption { padding:12px 16px; font-size:15px; color:var(--muted); }
+  .vgrid a { color:var(--accent); }
   footer { text-align:center; color:var(--muted); font-size:14px; padding:0 16px 32px; }
 </style>
 </head>
@@ -45,7 +52,32 @@
     <img src="img/saas.jpg" alt="Демо-лендинг SaaS-сервиса" loading="lazy">
     <div class="body"><h2>SaaS-сервис</h2><p>Продуктовый лендинг: возможности, тарифы, ответы на вопросы.</p><span class="tag">Открыть демо →</span></div>
   </a>
+  <a class="card" href="kosmetika.html">
+    <img src="img/kosmetika.jpg" alt="Демо интернет-магазина уходовой косметики" loading="lazy">
+    <div class="body"><h2>Магазин косметики</h2><p>Каталог с фильтрами, корзина, подбор ухода в чате, доставка и оплата.</p><span class="tag">Открыть демо →</span></div>
+  </a>
+  <a class="card" href="restoran.html">
+    <img src="img/restoran.jpg" alt="Демо-сайт панорамного ресторана" loading="lazy">
+    <div class="body"><h2>Ресторан</h2><p>Меню, шеф, залы и события, бронирование стола.</p><span class="tag">Открыть демо →</span></div>
+  </a>
+  <a class="card" href="glamping.html">
+    <img src="img/glamping.jpg" alt="Демо-сайт глэмпинга" loading="lazy">
+    <div class="body"><h2>Глэмпинг</h2><p>Домики и программы, форма бронирования по датам, как добраться.</p><span class="tag">Открыть демо →</span></div>
+  </a>
+  <a class="card" href="game-bot.html">
+    <img src="img/game-bot.jpg" alt="Демо-лендинг Telegram-бота для игрового сообщества" loading="lazy">
+    <div class="body"><h2>Telegram-бот для геймеров</h2><p>Турниры, рейтинг, мониторинг серверов, оплата в Telegram Stars.</p><span class="tag">Открыть демо →</span></div>
+  </a>
 </main>
+<section class="videos">
+  <h2>Видео: как сайты выглядят на ПК и телефоне</h2>
+  <div class="vgrid">
+    <figure><video src="video/kosmetika-desktop.mp4" poster="img/kosmetika.jpg" controls muted playsinline preload="none"></video><figcaption>Магазин косметики · <a href="video/kosmetika-mobile.mp4">версия для телефона</a></figcaption></figure>
+    <figure><video src="video/restoran-desktop.mp4" poster="img/restoran.jpg" controls muted playsinline preload="none"></video><figcaption>Ресторан · <a href="video/restoran-mobile.mp4">версия для телефона</a></figcaption></figure>
+    <figure><video src="video/glamping-desktop.mp4" poster="img/glamping.jpg" controls muted playsinline preload="none"></video><figcaption>Глэмпинг · <a href="video/glamping-mobile.mp4">версия для телефона</a></figcaption></figure>
+    <figure><video src="video/game-bot-desktop.mp4" poster="img/game-bot.jpg" controls muted playsinline preload="none"></video><figcaption>Telegram-бот для геймеров · <a href="video/game-bot-mobile.mp4">версия для телефона</a></figcaption></figure>
+  </div>
+</section>
 <footer>Код: <a href="https://github.com/Silokon/landing-demos">github.com/Silokon/landing-demos</a></footer>
 </body>
 </html>

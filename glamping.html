@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тёплый Перевал. Глэмпинг на Алтае у Катуни</title>
+<meta name="description" content="Глэмпинг Тёплый Перевал в Чемальском районе Алтая: шатры, купол с панорамным окном и юрты среди кедрового леса. Баня, купель, завтраки и тропы.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#f4eee4;
+  --linen:#ebe2d3;
+  --paper:#fbf8f2;
+  --moss:#2e3a2b;
+  --pine:#3f4f39;
+  --sage:#8b9a7a;
+  --clay:#b5683f;
+  --clay-dark:#9a5531;
+  --ember:#e2a868;
+  --bark:#4a3a2e;
+  --ink:#2a251f;
+  --muted:#6f665b;
+  --line:rgba(74,58,46,.14);
+  --line-light:rgba(255,248,236,.22);
+  --shadow:0 30px 60px rgba(46,58,43,.16);
+  --shadow-sm:0 14px 34px rgba(46,58,43,.10);
+  --r:18px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:'Onest',sans-serif;color:var(--ink);background:var(--sand);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button,input,select{font:inherit;color:inherit}
+h1,h2,h3,.serif{font-family:'Prata',serif;font-weight:400;line-height:1.12;letter-spacing:-.005em}
+.container{max-width:1240px;margin:0 auto;padding:0 32px}
+section{padding:120px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--clay);margin-bottom:22px}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.head{max-width:700px;margin-bottom:64px}
+.head.center{margin-left:auto;margin-right:auto;text-align:center}
+.head.center .eyebrow::after{content:"";width:28px;height:1px;background:currentColor}
+h2.title{text-wrap:balance;font-size:clamp(34px,4.4vw,56px);color:var(--moss)}
+h2.title em{font-style:normal;color:var(--clay)}
+.lead{color:var(--muted);font-size:17.5px;margin-top:20px;max-width:620px}
+.head.center .lead{margin-left:auto;margin-right:auto}
+
+/* Кнопки */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 30px;border-radius:999px;font-size:15px;font-weight:600;border:1px solid transparent;cursor:pointer;transition:all .4s var(--ease);white-space:nowrap}
+.btn svg{width:18px;height:18px;transition:transform .4s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-clay{background:var(--clay);color:#fff8ee}
+.btn-clay:hover{background:var(--clay-dark);transform:translateY(-2px);box-shadow:0 14px 30px rgba(181,104,63,.32)}
+.btn-line{border-color:rgba(255,248,236,.5);color:#fff8ee}
+.btn-line:hover{background:rgba(255,248,236,.12);border-color:#fff8ee}
+.btn-moss{background:var(--moss);color:#f4eee4}
+.btn-moss:hover{background:var(--pine);transform:translateY(-2px)}
+
+/* Шапка */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s,box-shadow .4s,border-color .4s;border-bottom:1px solid transparent}
+header.scrolled,header.menu-open{background:rgba(244,238,228,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line);box-shadow:0 10px 30px rgba(46,58,43,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:84px;gap:24px}
+.logo{display:flex;align-items:center;gap:12px;color:#fff8ee;transition:color .4s}
+.logo svg{width:40px;height:40px;flex:0 0 40px}
+.logo-text{white-space:nowrap;font-family:'Prata',serif;font-size:22px;line-height:1}
+.logo-text small{display:block;font-family:'Onest',sans-serif;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;opacity:.75;margin-top:6px}
+.nav-links{display:flex;gap:34px;list-style:none}
+.nav-links a{white-space:nowrap;font-size:14.5px;font-weight:500;color:rgba(255,248,236,.88);transition:color .3s;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--ember);transition:width .35s var(--ease)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-phone{white-space:nowrap;font-size:14.5px;font-weight:600;color:#fff8ee;transition:color .4s}
+header .btn{padding:12px 22px;font-size:14px}
+header.scrolled .logo,header.menu-open .logo,header.scrolled .nav-phone{color:var(--moss)}
+header.scrolled .nav-links a{color:var(--ink)}
+header.scrolled .nav-links a:hover{color:var(--clay)}
+.burger{display:none;width:44px;height:44px;border:none;background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.burger span{width:24px;height:2px;border-radius:2px;background:#fff8ee;transition:.35s}
+header.scrolled .burger span,header.menu-open .burger span{background:var(--moss)}
+.burger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+/* Первый экран */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:150px 0 56px;color:#fff8ee;overflow:hidden;background:#141a18}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:60% 62%;transform:scale(1.06);animation:heroZoom 14s var(--ease) forwards}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,18,22,.55) 0%,rgba(14,18,22,.12) 34%,rgba(14,18,22,.28) 60%,rgba(18,16,12,.86) 100%),linear-gradient(90deg,rgba(14,18,22,.55) 0%,rgba(14,18,22,0) 60%)}
+.hero .container{position:relative;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid var(--line-light);border-radius:999px;font-size:13px;letter-spacing:.04em;background:rgba(255,248,236,.08);backdrop-filter:blur(6px);margin-bottom:28px}
+.hero-tag i{width:7px;height:7px;border-radius:50%;background:var(--ember);box-shadow:0 0 0 4px rgba(226,168,104,.25)}
+.hero h1{font-size:clamp(46px,7.4vw,108px);max-width:980px;letter-spacing:-.015em}
+.hero h1 em{font-style:normal;color:var(--ember)}
+.hero-sub{font-size:18.5px;max-width:540px;margin:26px 0 36px;color:rgba(255,248,236,.86);font-weight:300}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.quick{margin-top:64px;display:grid;grid-template-columns:1fr 1fr 1fr auto;background:rgba(251,248,242,.97);border-radius:22px;padding:10px;color:var(--ink);box-shadow:0 30px 60px rgba(0,0,0,.28);max-width:980px}
+.quick label{display:flex;flex-direction:column;gap:2px;padding:12px 22px;border-right:1px solid var(--line);min-width:0}
+.quick label span{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.quick input,.quick select{border:none;background:transparent;font-size:16px;font-weight:500;outline:none;padding:4px 0;width:100%;min-width:0;cursor:pointer}
+.quick label:nth-child(3){border-right:none}
+.quick .btn{border-radius:14px;padding:0 34px;min-height:64px}
+
+/* О месте */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-media{position:relative}
+.about-media img{width:100%;height:600px;object-fit:cover;object-position:50% 70%;border-radius:var(--r)}
+.about-media .stamp{position:absolute;right:-28px;bottom:48px;width:150px;height:150px;border-radius:50%;background:var(--moss);color:var(--sand);display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Prata',serif;font-size:15px;line-height:1.3;box-shadow:var(--shadow);padding:18px}
+.about-media .stamp b{display:block;font-size:30px;color:var(--ember);font-weight:400}
+.about-text p{color:var(--muted);font-size:17px;margin-bottom:18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:44px;border-top:1px solid var(--line)}
+.stat{padding:30px 20px 0 0}
+.stat+.stat{padding-left:24px;border-left:1px solid var(--line)}
+.stat .num{font-family:'Prata',serif;font-size:52px;color:var(--moss);line-height:1}
+.stat .num sup{font-size:20px;color:var(--clay);margin-left:3px;vertical-align:top;position:relative;top:4px}
+.stat .cap{font-size:14px;color:var(--muted);margin-top:12px;line-height:1.45}
+
+/* Размещение */
+.stay{background:var(--paper)}
+.stay-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+.unit{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.unit:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.unit-img{position:relative;height:340px;overflow:hidden}
+.unit-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.unit:hover .unit-img img{transform:scale(1.05)}
+.unit-badge{position:absolute;top:18px;left:18px;background:rgba(251,248,242,.94);color:var(--moss);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:999px;display:flex;gap:7px;align-items:center}
+.unit-badge svg{width:15px;height:15px}
+.unit-body{padding:30px 32px 32px;display:flex;flex-direction:column;flex:1}
+.unit-body h3{font-size:28px;color:var(--moss)}
+.unit-body>p{color:var(--muted);margin:10px 0 20px;font-size:15.5px}
+.amen{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-bottom:28px}
+.amen li{font-size:13px;padding:6px 12px;border-radius:999px;background:var(--sand);color:var(--bark)}
+.unit-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:22px;border-top:1px solid var(--line)}
+.price{font-family:'Prata',serif;font-size:28px;color:var(--moss);line-height:1}
+.price small{display:block;font-family:'Onest',sans-serif;font-size:13px;color:var(--muted);margin-top:6px}
+.unit-foot .btn{padding:13px 22px;font-size:14px}
+
+/* Что входит */
+.incl{background:var(--moss);color:var(--sand);position:relative;overflow:hidden}
+.incl .eyebrow{color:var(--ember)}
+.incl h2.title{color:#fbf6ec}
+.incl h2.title em{color:var(--ember)}
+.incl .lead{color:rgba(244,238,228,.72)}
+.incl-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-light);border-left:1px solid var(--line-light)}
+.incl-item{padding:42px 36px;border-right:1px solid var(--line-light);border-bottom:1px solid var(--line-light);transition:background .4s}
+.incl-item:hover{background:rgba(255,248,236,.04)}
+.incl-item svg{width:52px;height:52px;color:var(--ember);margin-bottom:26px}
+.incl-item h3{font-size:23px;color:#fbf6ec;margin-bottom:10px}
+.incl-item p{color:rgba(244,238,228,.7);font-size:15px}
+.incl-ridge{position:absolute;right:-40px;top:40px;width:520px;opacity:.06;pointer-events:none}
+
+/* Галерея */
+.gallery{padding-bottom:110px}
+.gal-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:48px}
+.gal-head .head{margin-bottom:0}
+.gal-arrows{display:flex;gap:10px}
+.gal-arrows button{width:54px;height:54px;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--moss);transition:all .35s}
+.gal-arrows button:hover{background:var(--moss);color:var(--sand);border-color:var(--moss)}
+.gal-arrows svg{width:20px;height:20px}
+.strip{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 max(32px,calc((100vw - 1240px)/2 + 32px)) 18px;scroll-padding:0 max(32px,calc((100vw - 1240px)/2 + 32px));scrollbar-width:thin;scrollbar-color:var(--sage) transparent;-webkit-overflow-scrolling:touch}
+.strip::-webkit-scrollbar{height:6px}
+.strip::-webkit-scrollbar-thumb{background:var(--sage);border-radius:6px}
+.strip figure{flex:0 0 auto;scroll-snap-align:start;position:relative;border-radius:var(--r);overflow:hidden;height:440px}
+.strip figure.w{width:620px}
+.strip figure.n{width:360px}
+.strip img{width:100%;height:100%;object-fit:cover}
+.strip figcaption{position:absolute;left:16px;bottom:16px;background:rgba(251,248,242,.94);font-size:13px;font-weight:500;padding:7px 14px;border-radius:999px;color:var(--moss)}
+
+/* Сезоны */
+.seasons{background:var(--linen)}
+.season-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.season{background:var(--paper);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line)}
+.season-img{height:260px;position:relative}
+.season-img img{width:100%;height:100%;object-fit:cover}
+.season-tag{position:absolute;top:18px;left:18px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;background:var(--moss);color:var(--sand);padding:7px 14px;border-radius:999px}
+.season-body{padding:30px 30px 32px;display:flex;flex-direction:column;flex:1}
+.season-body h3{font-size:25px;color:var(--moss);margin-bottom:10px}
+.season-body>p{color:var(--muted);font-size:15px;margin-bottom:20px}
+.season ul{list-style:none;margin-bottom:24px}
+.season li{position:relative;padding-left:26px;font-size:14.5px;margin-bottom:9px}
+.season li::before{content:"";position:absolute;left:0;top:8px;width:12px;height:7px;border-left:2px solid var(--clay);border-bottom:2px solid var(--clay);transform:rotate(-45deg)}
+.season-meta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.season-meta b{font-family:'Prata',serif;font-weight:400;font-size:21px;color:var(--moss)}
+
+/* Отзывы */
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.rev{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:38px 34px;display:flex;flex-direction:column}
+.stars{display:flex;gap:3px;color:var(--ember);margin-bottom:22px}
+.stars svg{width:17px;height:17px}
+.rev blockquote{font-family:'Prata',serif;font-size:19px;line-height:1.55;color:var(--ink);margin-bottom:28px}
+.rev-who{margin-top:auto;display:flex;align-items:center;gap:14px;padding-top:22px;border-top:1px solid var(--line)}
+.ava{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Prata',serif;font-size:19px;color:#fff8ee;flex:0 0 48px}
+.rev-who b{display:block;font-weight:600;font-size:15px}
+.rev-who span{font-size:13.5px;color:var(--muted)}
+
+/* Вопросы */
+.faq{background:var(--paper)}
+.faq-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:start}
+.faq-aside p{color:var(--muted);margin:20px 0 30px}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item:first-child{border-top:1px solid var(--line)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:26px 0;background:none;border:none;cursor:pointer;text-align:left;font-size:18px;font-weight:500;color:var(--moss)}
+.faq-q i{flex:0 0 36px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);position:relative;transition:all .35s}
+.faq-q i::before,.faq-q i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:currentColor;transform:translate(-50%,-50%);transition:transform .35s}
+.faq-q i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq-item.open .faq-q i{background:var(--clay);border-color:var(--clay);color:#fff}
+.faq-item.open .faq-q i::after{transform:translate(-50%,-50%) rotate(0)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+.faq-a p{padding:0 60px 26px 0;color:var(--muted);font-size:15.5px}
+
+/* Бронь */
+.book{position:relative;color:var(--sand);overflow:hidden;background:#1d211a}
+.book-bg{position:absolute;inset:0}
+.book-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.book-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(24,28,20,.92) 0%,rgba(24,28,20,.78) 45%,rgba(24,28,20,.45) 100%)}
+.book .container{position:relative}
+.book-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.book .eyebrow{color:var(--ember)}
+.book h2.title{color:#fbf6ec}
+.book h2.title em{color:var(--ember)}
+.book .lead{color:rgba(244,238,228,.78)}
+.book-points{list-style:none;margin-top:34px}
+.book-points li{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;color:rgba(244,238,228,.88)}
+.book-points svg{width:22px;height:22px;flex:0 0 22px;color:var(--ember);margin-top:2px}
+.form-card{background:var(--paper);color:var(--ink);border-radius:24px;padding:42px;box-shadow:0 40px 80px rgba(0,0,0,.35)}
+.form-card h3{font-size:28px;color:var(--moss);margin-bottom:6px}
+.form-card form>p{color:var(--muted);font-size:14.5px;margin-bottom:26px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+.field span{font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--bark)}
+.field input,.field select{width:100%;min-width:0;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:15.5px;outline:none;transition:border-color .3s,box-shadow .3s;-webkit-appearance:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%234a3a2e' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+.field input:focus,.field select:focus{border-color:var(--clay);box-shadow:0 0 0 4px rgba(181,104,63,.12)}
+.calc{margin:22px 0 18px;padding:18px 20px;border-radius:14px;background:var(--sand);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.calc .calc-l{font-size:14px;color:var(--muted)}
+.calc .calc-total{font-family:'Prata',serif;font-size:27px;color:var(--moss);white-space:nowrap}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:13.5px;color:var(--muted);margin-bottom:22px;cursor:pointer}
+.consent input{width:19px;height:19px;flex:0 0 19px;margin-top:1px;accent-color:var(--clay);cursor:pointer}
+.consent a{color:var(--clay);text-decoration:underline;text-underline-offset:3px}
+.form-card .btn{width:100%}
+.form-error{color:#a8432a;font-size:13.5px;margin-top:12px;min-height:1px}
+.success{display:none;text-align:center;padding:30px 10px}
+.success.show{display:block}
+.success .ok{width:76px;height:76px;margin:0 auto 22px;border-radius:50%;background:var(--moss);color:var(--ember);display:flex;align-items:center;justify-content:center}
+.success .ok svg{width:34px;height:34px}
+.success h3{font-size:30px;color:var(--moss);margin-bottom:12px}
+.success p{color:var(--muted)}
+
+/* Как добраться */
+.route-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:stretch}
+.map{position:relative;border-radius:var(--r);overflow:hidden;background:#e9e0cf;border:1px solid var(--line);min-height:460px}
+.map-canvas{position:absolute;inset:0}
+.map-canvas svg{display:block;width:100%;height:100%}
+.map-card{position:absolute;left:24px;top:24px;background:var(--paper);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow-sm);font-size:14px;max-width:270px}
+.map-card b{display:block;font-family:'Prata',serif;font-weight:400;font-size:18px;color:var(--moss)}
+.map-card span{color:var(--muted)}
+.ways{display:flex;flex-direction:column;gap:16px}
+.way{display:flex;gap:20px;padding:24px 26px;background:var(--paper);border-radius:var(--r);border:1px solid var(--line)}
+.way-ico{width:50px;height:50px;flex:0 0 50px;border-radius:14px;background:var(--linen);color:var(--clay);display:flex;align-items:center;justify-content:center}
+.way-ico svg{width:26px;height:26px}
+.way h3{font-size:20px;color:var(--moss);margin-bottom:6px}
+.way p{font-size:14.5px;color:var(--muted)}
+.coords{font-size:14px;color:var(--muted);padding:6px 4px 0}
+.coords b{color:var(--moss);font-weight:600}
+
+/* Подвал */
+footer{background:#1f251d;color:rgba(244,238,228,.72);padding:84px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding-bottom:50px;border-bottom:1px solid var(--line-light)}
+footer .logo{color:var(--sand);margin-bottom:20px}
+footer p{font-size:14.5px;max-width:320px}
+footer h4{font-family:'Prata',serif;font-weight:400;font-size:18px;color:var(--sand);margin-bottom:18px}
+footer ul{list-style:none}
+footer li{margin-bottom:10px;font-size:14.5px}
+footer a:hover{color:var(--ember)}
+.foot-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:13px;color:rgba(244,238,228,.55)}
+.foot-bottom a{text-decoration:underline;text-underline-offset:3px}
+
+/* Появление при прокрутке: прячем только если JS работает */
+.js .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .reveal.visible{opacity:1;transform:none}
+.js .reveal.d1{transition-delay:.1s}.js .reveal.d2{transition-delay:.2s}.js .reveal.d3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .hero-bg img{animation:none;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* Адаптив */
+@media(max-width:1320px){.nav-phone{display:none}}
+@media(max-width:1100px){
+  .nav-links{gap:22px}
+}
+@media(max-width:980px){
+  section{padding:96px 0}
+  .nav-links{position:fixed;top:84px;left:0;right:0;flex-direction:column;gap:0;background:var(--sand);padding:8px 32px 28px;border-bottom:1px solid var(--line);box-shadow:0 20px 40px rgba(46,58,43,.12);transform:translateY(-12px);opacity:0;visibility:hidden;transition:all .35s var(--ease)}
+  .nav-links.open{transform:none;opacity:1;visibility:visible}
+  .nav-links li{border-bottom:1px solid var(--line)}
+  .nav-links a,header.scrolled .nav-links a{display:block;padding:16px 0;color:var(--ink);font-size:17px}
+  .nav-links a::after{display:none}
+  .burger{display:flex}
+  .about-grid,.book-grid,.faq-wrap,.route-grid{grid-template-columns:1fr;gap:56px}
+  .about-media img{height:480px}
+  .about-media .stamp{right:20px}
+  .stay-grid{gap:24px}
+  .incl-grid{grid-template-columns:repeat(2,1fr)}
+  .season-grid,.rev-grid{grid-template-columns:1fr;max-width:620px;margin:0 auto}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .quick{grid-template-columns:1fr 1fr 1fr}
+  .quick .btn{grid-column:1/-1;margin-top:8px}
+}
+@media(max-width:720px){
+  .container{padding:0 20px}
+  section{padding:76px 0}
+  .head{margin-bottom:40px}
+  .lead{font-size:16px}
+  .nav{height:70px}
+  html{scroll-padding-top:70px}
+  .nav-links{top:70px;padding:4px 20px 24px}
+  header .nav-right .btn{display:none}
+  .logo svg{width:34px;height:34px;flex-basis:34px}
+  .logo-text{font-size:19px}
+  .hero{padding:118px 0 28px;min-height:auto}
+  .hero-bg img{object-position:62% 60%}
+  .hero-bg::after{background:linear-gradient(180deg,rgba(14,18,22,.6) 0%,rgba(14,18,22,.2) 32%,rgba(14,18,22,.45) 58%,rgba(18,16,12,.92) 100%)}
+  .hero-tag{font-size:12px;margin-bottom:22px}
+  .hero h1{font-size:44px}
+  .hero-sub{font-size:16.5px;margin:20px 0 28px}
+  .hero-actions .btn{flex:1 1 100%}
+  .quick{margin-top:180px;grid-template-columns:1fr 1fr;padding:8px;border-radius:18px}
+  .quick label{padding:10px 14px;border-right:none;border-bottom:1px solid var(--line)}
+  .quick label:nth-child(1){border-right:1px solid var(--line)}
+  .quick label:nth-child(3){grid-column:1/-1}
+  .quick input,.quick select{font-size:15px}
+  .quick .btn{min-height:56px}
+  .about-media img{height:360px}
+  .about-media .stamp{width:118px;height:118px;font-size:12.5px;right:14px;bottom:-30px}
+  .about-media .stamp b{font-size:24px}
+  .stats{margin-top:36px}
+  .stat{padding:24px 10px 0 0}
+  .stat+.stat{padding-left:14px}
+  .stat .num{font-size:38px}
+  .stat .num sup{font-size:15px}
+  .stat .cap{font-size:12.5px}
+  .stay-grid{grid-template-columns:1fr}
+  .unit-img{height:250px}
+  .unit-body{padding:24px 22px 24px}
+  .unit-body h3{font-size:25px}
+  .price{font-size:25px}
+  .incl-grid{grid-template-columns:1fr}
+  .incl-item{padding:30px 24px;display:grid;grid-template-columns:48px 1fr;column-gap:20px}
+  .incl-item svg{width:44px;height:44px;margin:2px 0 0;grid-row:span 2}
+  .incl-item h3{font-size:21px;margin-bottom:6px}
+  .gal-head{margin-bottom:32px}
+  .gal-arrows{display:none}
+  .strip{padding:0 20px 14px;scroll-padding:0 20px;gap:14px}
+  .strip figure{height:320px}
+  .strip figure.w{width:300px}
+  .strip figure.n{width:230px}
+  .season-img{height:220px}
+  .season-body{padding:24px 22px 26px}
+  .rev{padding:30px 24px}
+  .rev blockquote{font-size:17.5px}
+  .faq-q{font-size:16.5px;padding:22px 0}
+  .faq-a p{padding-right:0}
+  .form-card{padding:28px 20px;border-radius:20px}
+  .fgrid{gap:14px}
+  .calc{flex-direction:column;align-items:flex-start;gap:4px}
+  .map{min-height:0}
+  .map-canvas{position:relative;aspect-ratio:700/460}
+  .map-card{position:static;max-width:none;border-radius:0;box-shadow:none;border-top:1px solid var(--line);padding:18px 20px}
+  .fgrid .field.m-full{grid-column:1/-1}
+  .way{padding:20px}
+  .foot-grid{grid-template-columns:1fr;gap:34px}
+  .foot-bottom{flex-direction:column;gap:10px}
+}
+@media(max-width:380px){
+  .fgrid{grid-template-columns:1fr}
+  .hero h1{font-size:40px}
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container nav">
+    <a href="#top" class="logo" aria-label="Тёплый Перевал">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-opacity=".45"/>
+        <path d="M7 28l9-13 5 7 4-5 8 11" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M17 28l3-6 3 6" stroke="#e2a868" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="27" cy="11" r="2.2" fill="#e2a868"/>
+      </svg>
+      <span class="logo-text">Тёплый Перевал<small>глэмпинг · Алтай</small></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">О месте</a></li>
+      <li><a href="#stay">Размещение</a></li>
+      <li><a href="#included">Что входит</a></li>
+      <li><a href="#seasons">Программы</a></li>
+      <li><a href="#faq">Вопросы</a></li>
+      <li><a href="#route">Как добраться</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:+79000000000" class="nav-phone">+7 (900) 000-00-00</a>
+      <a href="#book" class="btn btn-clay">Забронировать</a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- Первый экран -->
+<section class="hero">
+  <div class="hero-bg"><img src="img/glamping/hero-night.jpg" alt="Светящийся шатёр глэмпинга под звёздным небом" loading="eager" fetchpriority="high"></div>
+  <div class="container">
+    <div class="hero-tag reveal"><i></i>Чемальский район, Республика Алтай</div>
+    <h1 class="reveal d1">Ночь под звёздами,<br>утро <em>у Катуни</em></h1>
+    <p class="hero-sub reveal d2">Двенадцать домиков в кедровом лесу, баня на берегу и тишина, которую слышно. Приезжайте отдохнуть от города в настоящем комфорте.</p>
+    <div class="hero-actions reveal d2">
+      <a href="#book" class="btn btn-clay">Забронировать <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="#stay" class="btn btn-line">Смотреть домики</a>
+    </div>
+    <form class="quick reveal d3" id="quickForm" autocomplete="off">
+      <label><span>Заезд</span><input type="date" id="qIn" required></label>
+      <label><span>Выезд</span><input type="date" id="qOut" required></label>
+      <label><span>Гости</span>
+        <select id="qGuests">
+          <option value="1">1 гость</option>
+          <option value="2" selected>2 гостя</option>
+          <option value="3">3 гостя</option>
+          <option value="4">4 гостя</option>
+        </select>
+      </label>
+      <button type="submit" class="btn btn-clay">Проверить даты</button>
+    </form>
+  </div>
+</section>
+
+<!-- О месте -->
+<section id="about">
+  <div class="container about-grid">
+    <div class="about-media reveal">
+      <img src="img/glamping/tent-forest.jpg" alt="Шатёр на деревянном настиле в лесу, солнце сквозь деревья" loading="lazy">
+      <div class="stamp"><span><b>2019</b>принимаем гостей</span></div>
+    </div>
+    <div class="about-text">
+      <span class="eyebrow reveal">О месте</span>
+      <h2 class="title reveal d1">Там, где кончается асфальт, <em>начинается отдых</em></h2>
+      <p class="reveal d2" style="margin-top:26px">Тёплый Перевал стоит на склоне над бирюзовой Катунью, в стороне от трассы и туристических троп. Домики разнесены по лесу так, что соседей не видно и не слышно.</p>
+      <p class="reveal d2">У каждого шатра своя веранда, кровати с ортопедическими матрасами, тёплые полы и горячая вода. Мы оставили природу дикой, а быт сделали удобным.</p>
+      <div class="stats reveal d3">
+        <div class="stat"><div class="num"><span data-count="92">92</span><sup>км</sup></div><div class="cap">от Горно-Алтайска по хорошей дороге</div></div>
+        <div class="stat"><div class="num"><span data-count="40">40</span><sup>га</sup></div><div class="cap">кедрового леса на нашей земле</div></div>
+        <div class="stat"><div class="num"><span data-count="12">12</span></div><div class="cap">домиков, не больше 30 гостей</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Размещение -->
+<section class="stay" id="stay">
+  <div class="container">
+    <div class="head center">
+      <span class="eyebrow reveal">Размещение</span>
+      <h2 class="title reveal d1">Четыре способа <em>жить в лесу</em></h2>
+      <p class="lead reveal d2">Все домики отапливаются круглый год, в каждом своя ванная с душем, постельное бельё из льна и запас дров для печи.</p>
+    </div>
+    <div class="stay-grid">
+      <article class="unit reveal">
+        <div class="unit-img">
+          <img src="img/glamping/bell-tent.jpg" alt="Шатёр-колокол с уютной верандой" loading="lazy" style="object-position:50% 60%">
+          <span class="unit-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14.5c2.4 0 4 1.5 4.6 4"/></svg>до 2 гостей</span>
+        </div>
+        <div class="unit-body">
+          <h3>Шатёр-колокол</h3>
+          <p>Классика глэмпинга: хлопковый шатёр с высоким куполом, ковры, гирлянды и веранда с креслами для вечернего чая.</p>
+          <ul class="amen"><li>Двуспальная кровать</li><li>Дровяная печь</li><li>Веранда</li><li>Душ рядом</li></ul>
+          <div class="unit-foot">
+            <div class="price">7 900 руб.<small>за ночь, с завтраком</small></div>
+            <a href="#book" class="btn btn-moss" data-unit="bell">Выбрать</a>
+          </div>
+        </div>
+      </article>
+      <article class="unit reveal d1">
+        <div class="unit-img">
+          <img src="img/glamping/safari-inside.jpg" alt="Интерьер сафари-шатра: кровать и каменная стена" loading="lazy" style="object-position:50% 55%">
+          <span class="unit-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14.5c2.4 0 4 1.5 4.6 4"/></svg>до 4 гостей</span>
+        </div>
+        <div class="unit-body">
+          <h3>Сафари-шатёр</h3>
+          <p>Просторный шатёр на высоком помосте: каменная стена с камином, отдельная ванная и место для семьи с детьми.</p>
+          <ul class="amen"><li>Кровать и диван</li><li>Камин</li><li>Своя ванная</li><li>Кухонный уголок</li></ul>
+          <div class="unit-foot">
+            <div class="price">11 500 руб.<small>за ночь, с завтраком</small></div>
+            <a href="#book" class="btn btn-moss" data-unit="safari">Выбрать</a>
+          </div>
+        </div>
+      </article>
+      <article class="unit reveal">
+        <div class="unit-img">
+          <img src="img/glamping/dome-inside.jpg" alt="Интерьер купола с панорамным окном" loading="lazy" style="object-position:50% 50%">
+          <span class="unit-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14.5c2.4 0 4 1.5 4.6 4"/></svg>до 3 гостей</span>
+        </div>
+        <div class="unit-body">
+          <h3>Купол с панорамным окном</h3>
+          <p>Геокупол с окном во всю стену на долину реки. Засыпаете под звёздами, просыпаетесь с видом на горы, не вставая с кровати.</p>
+          <ul class="amen"><li>Панорамное окно</li><li>Тёплый пол</li><li>Кофемашина</li><li>Телескоп</li></ul>
+          <div class="unit-foot">
+            <div class="price">14 900 руб.<small>за ночь, с завтраком</small></div>
+            <a href="#book" class="btn btn-moss" data-unit="dome">Выбрать</a>
+          </div>
+        </div>
+      </article>
+      <article class="unit reveal d1">
+        <div class="unit-img">
+          <img src="img/glamping/yurt-mountain.jpg" alt="Юрта на фоне гор" loading="lazy" style="object-position:62% 60%">
+          <span class="unit-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14.5c2.4 0 4 1.5 4.6 4"/></svg>до 4 гостей</span>
+        </div>
+        <div class="unit-body">
+          <h3>Юрта</h3>
+          <p>Деревянная юрта на террасе с видом на хребет. Купол со световым окном, широкая кровать и диван для двоих детей.</p>
+          <ul class="amen"><li>Световой купол</li><li>Терраса</li><li>Своя ванная</li><li>Мангал</li></ul>
+          <div class="unit-foot">
+            <div class="price">12 800 руб.<small>за ночь, с завтраком</small></div>
+            <a href="#book" class="btn btn-moss" data-unit="yurt">Выбрать</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Что входит -->
+<section class="incl" id="included">
+  <svg class="incl-ridge" viewBox="0 0 520 200" fill="none" aria-hidden="true"><path d="M0 200L90 70l60 70 80-120 90 110 60-60 140 130" stroke="#fff" stroke-width="3"/></svg>
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow reveal">Что входит</span>
+      <h2 class="title reveal d1">Всё включено <em>в стоимость</em> ночи</h2>
+      <p class="lead reveal d2">Никаких доплат за баню и завтраки. Просто приезжайте, остальное мы подготовим.</p>
+    </div>
+    <div class="incl-grid">
+      <div class="incl-item reveal">
+        <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 24L26 11l18 13"/><path d="M12 21v21h28V21"/><path d="M22 42V32h8v10"/><path d="M19 9c-2-2 2-4 0-6M26 7c-2-2 2-4 0-6M33 9c-2-2 2-4 0-6"/></svg>
+        <h3>Русская баня</h3>
+        <p>Баня на дровах у реки с вениками и травяным чаем. Два часа в день на ваш домик.</p>
+      </div>
+      <div class="incl-item reveal d1">
+        <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 24h36v6a12 12 0 0 1-12 12H20A12 12 0 0 1 8 30z"/><path d="M14 31c2-2 4-2 6 0s4 2 6 0 4-2 6 0 4 2 6 0"/><path d="M14 42l-2 5M38 42l2 5"/><path d="M20 18c-2-2 2-4 0-7M28 18c-2-2 2-4 0-7"/></svg>
+        <h3>Горячая купель</h3>
+        <p>Кедровая купель под открытым небом, вода до 39 градусов. Особенно хороша зимой.</p>
+      </div>
+      <div class="incl-item reveal d2">
+        <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 22h26v8a13 13 0 0 1-26 0z"/><path d="M36 25h3a5 5 0 0 1 0 10h-4"/><path d="M6 46h34"/><path d="M17 16c-2-2 2-4 0-7M24 16c-2-2 2-4 0-7M31 16c-2-2 2-4 0-7"/></svg>
+        <h3>Завтраки</h3>
+        <p>Фермерские сырники, алтайский мёд, домашний хлеб и кофе. Привозим к домику к нужному часу.</p>
+      </div>
+      <div class="incl-item reveal">
+        <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 38c10-5 26-5 36 0-10 5-26 5-36 0z"/><path d="M35 6L19 34"/><path d="M33 4l5 3-3 5-5-3z"/><path d="M6 46c4 2 8 2 12 0s8-2 12 0 8 2 12 0"/></svg>
+        <h3>Прокат сапбордов</h3>
+        <p>Сапборды, жилеты и спокойная заводь Катуни. Инструктор покажет основы за 15 минут.</p>
+      </div>
+      <div class="incl-item reveal d1">
+        <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 44l14-22 8 11 6-8 16 19z"/><path d="M14 44c4-4 10-4 12-8s8-6 12-6" stroke-dasharray="2 4"/><path d="M38 10v12"/><path d="M38 10h8l-2 3 2 3h-8"/></svg>
+        <h3>Тропы и маршруты</h3>
+        <p>Четыре размеченные тропы от 3 до 14 км: к водопаду, на смотровую и к кедровой роще.</p>
+      </div>
+      <div class="incl-item reveal d2">
+        <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 8c6 7 10 11 10 18a10 10 0 0 1-20 0c0-4 2-6 4-9 1 3 3 4 4 4-1-5 0-9 2-13z"/><path d="M10 46l32-8M42 46L10 38"/></svg>
+        <h3>Вечерний костёр</h3>
+        <p>Общая костровая с пледами, глинтвейном и гитарой. Звёзды здесь видно лучше, чем где-либо.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Галерея -->
+<section class="gallery" id="gallery">
+  <div class="container gal-head">
+    <div class="head">
+      <span class="eyebrow reveal">Галерея</span>
+      <h2 class="title reveal d1">Посмотрите, <em>как здесь</em></h2>
+    </div>
+    <div class="gal-arrows reveal">
+      <button type="button" id="galPrev" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+      <button type="button" id="galNext" aria-label="Вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div class="strip reveal" id="strip">
+    <figure class="w"><img src="img/glamping/yurt-sunset.jpg" alt="Юрта на закате" loading="lazy" style="object-position:50% 70%"><figcaption>Юрта на закате</figcaption></figure>
+    <figure class="n"><img src="img/glamping/yurt-inside.jpg" alt="Интерьер юрты с куполом" loading="lazy" style="object-position:45% 50%"><figcaption>Внутри юрты</figcaption></figure>
+    <figure class="w"><img src="img/glamping/tent-meadow.jpg" alt="Шатёр на поляне" loading="lazy" style="object-position:50% 60%"><figcaption>Шатёр на поляне</figcaption></figure>
+    <figure class="n"><img src="img/glamping/bell-tent.jpg" alt="Веранда шатра-колокола" loading="lazy" style="object-position:48% 60%"><figcaption>Веранда колокола</figcaption></figure>
+    <figure class="w"><img src="img/glamping/dome-inside.jpg" alt="Купол с панорамным окном" loading="lazy" style="object-position:30% 50%"><figcaption>Утро в куполе</figcaption></figure>
+    <figure class="n"><img src="img/glamping/tent-forest.jpg" alt="Шатёр в лесу на рассвете" loading="lazy" style="object-position:55% 60%"><figcaption>Рассвет в лесу</figcaption></figure>
+    <figure class="w"><img src="img/glamping/yurt-mountain.jpg" alt="Юрта у подножия гор" loading="lazy" style="object-position:55% 50%"><figcaption>Вид на хребет</figcaption></figure>
+    <figure class="n"><img src="img/glamping/safari-inside.jpg" alt="Спальня сафари-шатра" loading="lazy" style="object-position:40% 60%"><figcaption>Сафари-шатёр</figcaption></figure>
+  </div>
+</section>
+
+<!-- Сезоны и программы -->
+<section class="seasons" id="seasons">
+  <div class="container">
+    <div class="head center">
+      <span class="eyebrow reveal">Сезоны и программы</span>
+      <h2 class="title reveal d1">Алтай хорош <em>в любое время</em></h2>
+      <p class="lead reveal d2">Готовые программы на 3 и 5 ночей: проживание, питание и всё, что не хочется планировать самим.</p>
+    </div>
+    <div class="season-grid">
+      <article class="season reveal">
+        <div class="season-img"><img src="img/glamping/yurt-mountain.jpg" alt="Заснеженные горы над юртой" loading="lazy" style="object-position:30% 25%"><span class="season-tag">Зима</span></div>
+        <div class="season-body">
+          <h3>Снежный Алтай</h3>
+          <p>Белые склоны, горячая купель на морозе и печь, которая трещит всю ночь.</p>
+          <ul><li>Прогулка на снегоступах</li><li>Баня и купель каждый день</li><li>Ужины у камина</li></ul>
+          <div class="season-meta"><span>Декабрь, март · 3 ночи</span><b>от 29 900 руб.</b></div>
+        </div>
+      </article>
+      <article class="season reveal d1">
+        <div class="season-img"><img src="img/glamping/tent-meadow.jpg" alt="Летний шатёр на поляне" loading="lazy" style="object-position:50% 55%"><span class="season-tag">Лето</span></div>
+        <div class="season-body">
+          <h3>Река и травы</h3>
+          <p>Сапборды на рассвете, походы к водопадам и сбор алтайских трав с местным знатоком.</p>
+          <ul><li>Сплав по Катуни</li><li>Поход к водопаду Учар</li><li>Пикник на смотровой</li></ul>
+          <div class="season-meta"><span>Июнь, август · 3 ночи</span><b>от 34 500 руб.</b></div>
+        </div>
+      </article>
+      <article class="season reveal d2">
+        <div class="season-img"><img src="img/glamping/yurt-inside.jpg" alt="Интерьер юрты для ретрита" loading="lazy" style="object-position:50% 30%"><span class="season-tag">Ретрит</span></div>
+        <div class="season-body">
+          <h3>Тишина и практики</h3>
+          <p>Пять дней без спешки: йога на террасе, дыхательные практики и цифровой детокс.</p>
+          <ul><li>Утренняя йога и медитации</li><li>Сбалансированное меню</li><li>Сеанс у массажиста</li></ul>
+          <div class="season-meta"><span>Круглый год · 5 ночей</span><b>от 64 000 руб.</b></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Отзывы -->
+<section id="reviews">
+  <div class="container">
+    <div class="head center">
+      <span class="eyebrow reveal">Отзывы</span>
+      <h2 class="title reveal d1">Гости возвращаются <em>снова</em></h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rev reveal">
+        <div class="stars" aria-label="5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg></div>
+        <blockquote>Жили в куполе три ночи и каждый вечер не могли оторваться от неба. Завтраки привозили ровно к девяти, баня просто сказка.</blockquote>
+        <div class="rev-who"><div class="ava" style="background:#b5683f">М</div><div><b>Марина и Олег</b><span>Новосибирск, купол</span></div></div>
+      </div>
+      <div class="rev reveal d1">
+        <div class="stars" aria-label="5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg></div>
+        <blockquote>Приехали с двумя детьми в сафари-шатёр. Места хватило всем, дети не вылезали с сапбордов, а мы наконец выспались.</blockquote>
+        <div class="rev-who"><div class="ava" style="background:#3f4f39">А</div><div><b>Анна Соколова</b><span>Барнаул, сафари-шатёр</span></div></div>
+      </div>
+      <div class="rev reveal d2">
+        <div class="stars" aria-label="5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg></div>
+        <blockquote>Брала ретрит на пять ночей, чтобы перезагрузиться. Йога на рассвете над рекой и тишина вокруг сделали больше, чем отпуск на море.</blockquote>
+        <div class="rev-who"><div class="ava" style="background:#8b9a7a">Е</div><div><b>Екатерина Л.</b><span>Москва, программа ретрит</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Вопросы -->
+<section class="faq" id="faq">
+  <div class="container faq-wrap">
+    <div class="faq-aside">
+      <span class="eyebrow reveal">Вопросы</span>
+      <h2 class="title reveal d1">Частые <em>вопросы</em></h2>
+      <p class="reveal d2">Не нашли ответ? Напишите в Телеграм или позвоните, ответим в течение часа с 9:00 до 21:00.</p>
+      <a href="tel:+79000000000" class="btn btn-moss reveal d2">+7 (900) 000-00-00</a>
+    </div>
+    <div class="faq-list reveal d1">
+      <div class="faq-item open">
+        <button class="faq-q" type="button">Можно ли приехать с ребёнком или собакой?<i></i></button>
+        <div class="faq-a"><p>Да. Дети до 5 лет живут бесплатно, для малышей дадим кроватку. Собак до 15 кг принимаем в сафари-шатре и юрте, доплата 1 000 руб. за пребывание.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Тепло ли в шатрах зимой?<i></i></button>
+        <div class="faq-a"><p>Все домики утеплены, в каждом тёплый пол и дровяная печь или камин. Даже в мороз внутри держится 22 до 24 градусов.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Есть ли связь и интернет?<i></i></button>
+        <div class="faq-a"><p>В общем доме работает спутниковый Wi-Fi, мобильная связь ловит на большей части территории. В домиках интернета нет специально, чтобы вы отдохнули.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Как оплатить и отменить бронь?<i></i></button>
+        <div class="faq-a"><p>Для подтверждения брони вносится предоплата 30%. При отмене за 14 дней и раньше возвращаем её полностью, позже переносим на другие даты в течение года.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Во сколько заезд и выезд?<i></i></button>
+        <div class="faq-a"><p>Заезд с 14:00, выезд до 12:00. Ранний заезд и поздний выезд по возможности, сообщите о них заранее.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Бронь -->
+<section class="book" id="book">
+  <div class="book-bg"><img src="img/glamping/yurt-sunset.jpg" alt="" loading="lazy"></div>
+  <div class="container book-grid">
+    <div>
+      <span class="eyebrow reveal">Бронирование</span>
+      <h2 class="title reveal d1">Выберите даты, <em>мы подготовим остальное</em></h2>
+      <p class="lead reveal d2">Стоимость считается сразу. После заявки администратор свяжется с вами, подтвердит домик и пришлёт ссылку на предоплату.</p>
+      <ul class="book-points reveal d3">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Завтраки, баня и купель уже в цене</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Бесплатная отмена за 14 дней до заезда</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Трансфер из Горно-Алтайска по запросу</li>
+      </ul>
+    </div>
+    <div class="form-card reveal d1">
+      <form id="bookForm" novalidate>
+        <h3>Заявка на бронь</h3>
+        <p>Ответим в течение часа в рабочее время</p>
+        <div class="fgrid">
+          <label class="field full"><span>Тип домика</span>
+            <select id="bUnit">
+              <option value="bell" data-price="7900" data-max="2">Шатёр-колокол</option>
+              <option value="safari" data-price="11500" data-max="4">Сафари-шатёр</option>
+              <option value="dome" data-price="14900" data-max="3" selected>Купол с панорамным окном</option>
+              <option value="yurt" data-price="12800" data-max="4">Юрта</option>
+            </select>
+          </label>
+          <label class="field"><span>Заезд</span><input type="date" id="bIn"></label>
+          <label class="field"><span>Выезд</span><input type="date" id="bOut"></label>
+          <label class="field m-full"><span>Гости</span>
+            <select id="bGuests">
+              <option value="1">1 гость</option>
+              <option value="2" selected>2 гостя</option>
+              <option value="3">3 гостя</option>
+              <option value="4">4 гостя</option>
+            </select>
+          </label>
+          <label class="field m-full"><span>Имя</span><input type="text" id="bName" placeholder="Как к вам обращаться" autocomplete="name"></label>
+          <label class="field full"><span>Телефон</span><input type="tel" id="bPhone" placeholder="+7 (900) 000-00-00" autocomplete="tel"></label>
+        </div>
+        <div class="calc">
+          <span class="calc-l" id="calcLabel">2 ночи × 14 900 руб.</span>
+          <span class="calc-total" id="calcTotal">29 800 руб.</span>
+        </div>
+        <label class="consent"><input type="checkbox" id="bConsent"><span>Я соглашаюсь на обработку персональных данных и принимаю <a href="#privacy" onclick="return false">политику конфиденциальности</a></span></label>
+        <button type="submit" class="btn btn-clay">Отправить заявку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <div class="form-error" id="formError" role="alert"></div>
+      </form>
+      <div class="success" id="formSuccess">
+        <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+        <h3>Заявка отправлена</h3>
+        <p id="successText">Администратор свяжется с вами в течение часа и подтвердит бронь.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Как добраться -->
+<section id="route">
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow reveal">Как добраться</span>
+      <h2 class="title reveal d1">Дорога, которая <em>уже часть отдыха</em></h2>
+    </div>
+    <div class="route-grid">
+      <div class="map reveal">
+        <div class="map-canvas"><svg viewBox="0 0 700 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="700" height="460" fill="#e9e0cf"/>
+          <g fill="#d9cdb6"><path d="M0 120L70 60l60 50 70-80 80 90 50-40 90 70 60-50 100 80 120-70v-150H0z"/></g>
+          <g fill="none" stroke="#cfc2a8" stroke-width="1"><path d="M0 200c120-30 220 20 340-10s240-40 360 0"/><path d="M0 250c120-30 220 20 340-10s240-40 360 0"/><path d="M0 300c120-30 220 20 340-10s240-40 360 0"/><path d="M0 350c120-30 220 20 340-10s240-40 360 0"/></g>
+          <g fill="#c6cfb4" opacity=".9"><circle cx="520" cy="300" r="70"/><circle cx="600" cy="220" r="50"/><circle cx="470" cy="380" r="46"/><circle cx="150" cy="380" r="40"/></g>
+          <path d="M-10 460C80 400 140 420 200 360s100-60 170-70 120-60 170-110 90-80 180-110" fill="none" stroke="#7fb3b0" stroke-width="16" stroke-linecap="round" opacity=".7"/>
+          <path d="M70 410C150 360 200 330 260 330s120-20 180-60 80-60 110-70" fill="none" stroke="#b5683f" stroke-width="3" stroke-dasharray="9 8" stroke-linecap="round"/>
+          <g><circle cx="70" cy="410" r="8" fill="#2e3a2b"/><text x="88" y="415" font-family="Onest,sans-serif" font-size="15" fill="#2e3a2b">Горно-Алтайск</text></g>
+          <g><circle cx="300" cy="322" r="5" fill="#4a3a2e"/><text x="270" y="305" font-family="Onest,sans-serif" font-size="13" fill="#6f665b">Чемал</text></g>
+          <g transform="translate(550 200)"><circle r="22" fill="#b5683f" opacity=".2"/><circle r="11" fill="#b5683f"/><circle r="4" fill="#fff8ee"/></g>
+          <text x="455" y="160" font-family="Prata,serif" font-size="19" fill="#2e3a2b">Тёплый Перевал</text>
+          <text x="560" y="420" font-family="Onest,sans-serif" font-size="12" fill="#6f665b" letter-spacing="2">р. КАТУНЬ</text>
+          <g transform="translate(640 60)" fill="none" stroke="#6f665b" stroke-width="1.4"><circle r="18"/><path d="M0-12l4 12-4 12-4-12z" fill="#6f665b"/></g>
+        </svg></div>
+        <div class="map-card"><b>Тёплый Перевал</b><span>Чемальский тракт, 92 км. Последние 4 км грунтовка, проезжает любая машина.</span></div>
+      </div>
+      <div class="ways">
+        <div class="way reveal">
+          <div class="way-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16V11l2-5h12l2 5v5"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="13" r="1"/><circle cx="16.5" cy="13" r="1"/></svg></div>
+          <div><h3>На машине</h3><p>Из Горно-Алтайска 1 час 40 минут по Чемальскому тракту. На территории бесплатная парковка.</p></div>
+        </div>
+        <div class="way reveal d1">
+          <div class="way-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14l20-6-2 4-7 2-3 6-2-1 1-4-5 1z"/></svg></div>
+          <div><h3>Самолётом</h3><p>Аэропорт Горно-Алтайска, прямые рейсы из Москвы и Новосибирска. Встретим у выхода.</p></div>
+        </div>
+        <div class="way reveal d2">
+          <div class="way-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="13" rx="3"/><path d="M4 11h16M8 20l-1 1M16 20l1 1"/><circle cx="8" cy="14" r=".8"/><circle cx="16" cy="14" r=".8"/></svg></div>
+          <div><h3>Трансфер</h3><p>Минивэн из аэропорта или от автовокзала, 4 500 руб. в одну сторону за машину до 6 человек.</p></div>
+        </div>
+        <p class="coords reveal">Координаты для навигатора: <b>51.4130, 86.0050</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo">
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-opacity=".45"/><path d="M7 28l9-13 5 7 4-5 8 11" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 28l3-6 3 6" stroke="#e2a868" stroke-width="1.6" stroke-linejoin="round"/><circle cx="27" cy="11" r="2.2" fill="#e2a868"/></svg>
+          <span class="logo-text">Тёплый Перевал<small>глэмпинг · Алтай</small></span>
+        </a>
+        <p>Шатры, купола и юрты в кедровом лесу над Катунью. Принимаем гостей круглый год.</p>
+      </div>
+      <div>
+        <h4>Навигация</h4>
+        <ul><li><a href="#stay">Размещение</a></li><li><a href="#included">Что входит</a></li><li><a href="#seasons">Программы</a></li><li><a href="#book">Бронирование</a></li></ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <ul><li><a href="tel:+79000000000">+7 (900) 000-00-00</a></li><li><a href="mailto:hello@teply-pereval.example">hello@teply-pereval.example</a></li><li>Ежедневно 9:00 до 21:00</li></ul>
+      </div>
+      <div>
+        <h4>Адрес</h4>
+        <ul><li>Республика Алтай,</li><li>Чемальский район,</li><li>урочище Кедровое, 1</li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Тёплый Перевал</span>
+      <span>Демо-проект. Глэмпинг и контакты вымышленные. Фото: Wikimedia Commons, авторы в <a href="CREDITS.md">CREDITS.md</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+// Шапка при прокрутке
+const header=document.getElementById('header');
+const onScroll=()=>header.classList.toggle('scrolled',window.scrollY>30);
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// Бургер
+const burger=document.getElementById('burger');
+const navLinks=document.getElementById('navLinks');
+const closeMenu=()=>{burger.classList.remove('active');navLinks.classList.remove('open');header.classList.remove('menu-open');burger.setAttribute('aria-expanded','false')};
+burger.addEventListener('click',()=>{
+  const open=!navLinks.classList.contains('open');
+  burger.classList.toggle('active',open);navLinks.classList.toggle('open',open);header.classList.toggle('menu-open',open);
+  burger.setAttribute('aria-expanded',String(open));
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+
+// Появление блоков
+const revealEls=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
+  },{threshold:0.12,rootMargin:'0px 0px -30px 0px'});
+  revealEls.forEach(el=>io.observe(el));
+}else{revealEls.forEach(el=>el.classList.add('visible'))}
+
+// Счётчики
+const counterIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,target=+el.dataset.count,start=performance.now(),dur=1400;
+    const tick=t=>{const p=Math.min(1,(t-start)/dur);el.textContent=Math.round(target*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)};
+    requestAnimationFrame(tick);counterIO.unobserve(el);
+  });
+},{threshold:0.6});
+document.querySelectorAll('[data-count]').forEach(el=>counterIO.observe(el));
+
+// Аккордеон
+const faqItems=document.querySelectorAll('.faq-item');
+faqItems.forEach(item=>{
+  const a=item.querySelector('.faq-a');
+  if(item.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';
+  item.querySelector('.faq-q').addEventListener('click',()=>{
+    const wasOpen=item.classList.contains('open');
+    faqItems.forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null});
+    if(!wasOpen){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}
+  });
+});
+window.addEventListener('resize',()=>{const o=document.querySelector('.faq-item.open .faq-a');if(o)o.style.maxHeight=o.scrollHeight+'px'});
+
+// Галерея: стрелки
+const strip=document.getElementById('strip');
+const stepGal=dir=>strip.scrollBy({left:dir*(strip.querySelector('figure').offsetWidth+20),behavior:'smooth'});
+document.getElementById('galPrev').addEventListener('click',()=>stepGal(-1));
+document.getElementById('galNext').addEventListener('click',()=>stepGal(1));
+
+// Даты
+const DAY=86400000;
+const iso=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*60000);return z.toISOString().slice(0,10)};
+const today=new Date();today.setHours(0,0,0,0);
+const dIn=new Date(today.getTime()+14*DAY),dOut=new Date(today.getTime()+16*DAY);
+const qIn=document.getElementById('qIn'),qOut=document.getElementById('qOut'),qGuests=document.getElementById('qGuests');
+const bUnit=document.getElementById('bUnit'),bIn=document.getElementById('bIn'),bOut=document.getElementById('bOut'),bGuests=document.getElementById('bGuests');
+[qIn,bIn].forEach(i=>{i.value=iso(dIn);i.min=iso(today)});
+[qOut,bOut].forEach(i=>{i.value=iso(dOut);i.min=iso(new Date(today.getTime()+DAY))});
+const keepOrder=(a,b)=>{
+  if(a.value&&(!b.value||b.value<=a.value)){b.value=iso(new Date(new Date(a.value+'T00:00').getTime()+DAY))}
+  if(a.value)b.min=iso(new Date(new Date(a.value+'T00:00').getTime()+DAY));
+};
+qIn.addEventListener('change',()=>keepOrder(qIn,qOut));
+
+// Расчёт стоимости
+const fmt=n=>n.toLocaleString('ru-RU').replace(/ /g,' ');
+const plural=(n,f)=>{const m10=n%10,m100=n%100;return f[(m10===1&&m100!==11)?0:(m10>=2&&m10<=4&&(m100<10||m100>=20))?1:2]};
+const nightsBetween=()=>{if(!bIn.value||!bOut.value)return 0;return Math.round((new Date(bOut.value+'T00:00')-new Date(bIn.value+'T00:00'))/DAY)};
+function calc(){
+  const opt=bUnit.selectedOptions[0],price=+opt.dataset.price,max=+opt.dataset.max;
+  [...bGuests.options].forEach(o=>{o.disabled=+o.value>max});
+  if(+bGuests.value>max)bGuests.value=String(max);
+  const n=nightsBetween();
+  const label=document.getElementById('calcLabel'),total=document.getElementById('calcTotal');
+  if(n>0){label.textContent=n+' '+plural(n,['ночь','ночи','ночей'])+' × '+fmt(price)+' руб.';total.textContent=fmt(n*price)+' руб.'}
+  else{label.textContent='Выберите даты заезда и выезда';total.textContent='0 руб.'}
+}
+bIn.addEventListener('change',()=>{keepOrder(bIn,bOut);calc()});
+[bOut,bUnit,bGuests].forEach(el=>el.addEventListener('change',calc));
+calc();
+
+// Быстрая форма на первом экране переносит данные в бронь
+document.getElementById('quickForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  bIn.value=qIn.value;bOut.value=qOut.value;keepOrder(bIn,bOut);
+  const g=+qGuests.value;if(g>3&&(bUnit.value==='bell'||bUnit.value==='dome'))bUnit.value='safari';
+  calc();bGuests.value=String(Math.min(g,+bUnit.selectedOptions[0].dataset.max));calc();
+  document.getElementById('book').scrollIntoView({behavior:'smooth'});
+});
+
+// Кнопки "Выбрать" в карточках
+document.querySelectorAll('[data-unit]').forEach(b=>b.addEventListener('click',()=>{bUnit.value=b.dataset.unit;calc()}));
+
+// Отправка заявки без сервера
+const form=document.getElementById('bookForm'),err=document.getElementById('formError');
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('bName').value.trim();
+  const phone=document.getElementById('bPhone').value.replace(/\D/g,'');
+  if(nightsBetween()<1){err.textContent='Проверьте даты: выезд должен быть позже заезда.';return}
+  if(!name){err.textContent='Укажите, как к вам обращаться.';return}
+  if(phone.length<10){err.textContent='Укажите телефон, чтобы мы могли подтвердить бронь.';return}
+  if(!document.getElementById('bConsent').checked){err.textContent='Нужно согласие на обработку персональных данных.';return}
+  err.textContent='';
+  document.getElementById('successText').textContent=name+', спасибо! '+bUnit.selectedOptions[0].text.trim()+', '+nightsBetween()+' '+plural(nightsBetween(),['ночь','ночи','ночей'])+', итого '+document.getElementById('calcTotal').textContent+' Администратор свяжется с вами в течение часа.';
+  form.style.display='none';
+  document.getElementById('formSuccess').classList.add('show');
+});
+</script>
+</body>
+</html>

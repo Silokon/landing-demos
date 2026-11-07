@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClutchBot: Telegram-бот для игрового сообщества и турниров</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090f;
+  --bg2:#0b0f1c;
+  --panel:rgba(18,24,42,0.72);
+  --line:rgba(120,160,255,0.13);
+  --cyan:#3fdcff;
+  --violet:#8f7dff;
+  --lime:#6ff0a4;
+  --amber:#ffc75a;
+  --red:#ff5f76;
+  --text:#e9edf7;
+  --muted:#97a1bd;
+  --muted2:#6f7894;
+  --grad:linear-gradient(120deg,#3fdcff 0%,#8f7dff 100%);
+  --radius:20px;
+  /* Telegram dark */
+  --tg-head:#17212b;
+  --tg-bg:#0e1621;
+  --tg-in:#182533;
+  --tg-out:#2b5278;
+  --tg-btn:rgba(56,78,104,0.75);
+  --tg-link:#6ab3f3;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.brand{font-family:'Unbounded',sans-serif;letter-spacing:-0.02em;line-height:1.15}
+a{color:inherit;text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* Background */
+.bg-glow{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg-glow span{position:absolute;border-radius:50%;filter:blur(110px);opacity:.28}
+.bg-glow .g1{width:560px;height:560px;background:#2a7bff;top:-220px;left:-160px}
+.bg-glow .g2{width:520px;height:520px;background:#7a4dff;top:120px;right:-200px}
+.grid-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(rgba(120,160,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(120,160,255,0.05) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 72%);mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 72%)}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(7,9,15,0.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px}
+.brand svg{width:32px;height:32px;flex-shrink:0}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:var(--muted);font-size:15px;font-weight:600;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Manrope';font-weight:700;font-size:15px;padding:12px 22px;border-radius:12px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;white-space:nowrap}
+.btn-primary{background:var(--grad);color:#06101c;box-shadow:0 8px 28px -10px rgba(63,220,255,.7)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(63,220,255,.85)}
+.btn-ghost{background:rgba(255,255,255,.03);color:var(--text);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:rgba(63,220,255,.4)}
+.btn-lg{padding:16px 30px;font-size:16px;border-radius:14px}
+
+/* Hero */
+.hero{position:relative;padding:72px 0 90px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid rgba(63,220,255,.28);background:rgba(63,220,255,.07);color:#bfefff;font-size:13px;font-weight:700;margin-bottom:22px}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime)}
+.hero h1{font-size:44px;font-weight:700;margin-bottom:22px}
+.hero p.lead{font-size:18px;color:var(--muted);max-width:560px;margin-bottom:30px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;color:#cfd6ea;padding:7px 12px;border-radius:10px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+.chip b{color:var(--cyan);font-family:'JetBrains Mono',monospace;font-weight:700}
+
+/* Phone */
+.phone-wrap{display:flex;justify-content:center;position:relative}
+.phone-wrap::before{content:"";position:absolute;width:78%;height:70%;top:15%;left:11%;background:radial-gradient(circle,rgba(63,220,255,.22),rgba(143,125,255,.12) 45%,transparent 70%);filter:blur(30px);z-index:0}
+.phone{position:relative;z-index:1;width:360px;max-width:100%;height:720px;border-radius:48px;padding:11px;background:linear-gradient(160deg,#2a3247,#10141f 40%,#1b2133);box-shadow:0 0 0 1px rgba(160,190,255,.16),0 30px 80px -20px rgba(0,0,0,.8),0 0 60px -20px rgba(63,220,255,.35)}
+.screen{position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:var(--tg-bg);display:flex;flex-direction:column}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:14px;background:#000;z-index:5}
+.statusbar{height:40px;flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 4px;font-size:12px;font-weight:700;background:var(--tg-head);color:#fff}
+.statusbar .sb-r{display:flex;gap:5px;align-items:center}
+.statusbar .sb-r i{display:block;width:16px;height:9px;border:1.5px solid #fff;border-radius:3px;position:relative}
+.statusbar .sb-r i::after{content:"";position:absolute;inset:1px;right:4px;background:#fff;border-radius:1px}
+.statusbar .sb-r s{display:block;width:14px;height:9px;background:linear-gradient(90deg,#fff 0 3px,transparent 3px 5px,#fff 5px 8px,transparent 8px 10px,#fff 10px);clip-path:polygon(0 100%,100% 0,100% 100%)}
+.tg-head{flex-shrink:0;display:flex;align-items:center;gap:10px;padding:8px 12px 10px;background:var(--tg-head);border-bottom:1px solid rgba(0,0,0,.35)}
+.tg-back{width:18px;height:18px;color:var(--tg-link)}
+.ava{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:linear-gradient(135deg,#1fb6e0,#7a5cff)}
+.ava svg{width:22px;height:22px}
+.tg-title{line-height:1.25;min-width:0}
+.tg-title b{display:block;font-size:14.5px;color:#fff;font-weight:700}
+.tg-title span{font-size:12px;color:#7d8b99}
+.tg-title span.typing-st{color:var(--tg-link)}
+.chat{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:10px 8px 8px;overflow:hidden;
+  background-color:var(--tg-bg);
+  background-image:radial-gradient(rgba(106,179,243,.05) 1.2px,transparent 1.3px),radial-gradient(rgba(143,125,255,.04) 1.2px,transparent 1.3px);
+  background-size:22px 22px,34px 34px;background-position:0 0,11px 17px}
+.tg-input{flex-shrink:0;display:flex;align-items:center;gap:10px;padding:8px 12px 16px;background:var(--tg-head)}
+.tg-input .field{flex:1;height:34px;border-radius:18px;background:#0e1621;color:#6d7883;font-size:13px;display:flex;align-items:center;padding:0 14px}
+.tg-input .ic{width:22px;height:22px;color:#6d7883;flex-shrink:0}
+
+/* Messages */
+.m{display:none;max-width:86%;font-size:13.2px;line-height:1.42;color:#f2f5f8}
+.m.show{display:block;animation:pop .32s cubic-bezier(.2,.8,.3,1.2) both}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.m.out{align-self:flex-end}
+.m.in{align-self:flex-start}
+.m.wide{max-width:94%;width:94%}
+.bub{position:relative;padding:7px 10px 6px;border-radius:14px}
+.out .bub{background:var(--tg-out);border-bottom-right-radius:4px}
+.in .bub{background:var(--tg-in);border-bottom-left-radius:4px}
+.t{float:right;font-size:10.5px;color:rgba(255,255,255,.45);margin:6px 0 -3px 8px;line-height:1}
+.out .t{color:rgba(170,215,255,.7)}
+.out .t::after{content:" \2713\2713";color:#7ec8ff;letter-spacing:-2px}
+.cmd{color:var(--tg-link)}
+.bub b{font-weight:700}
+.bub .h{font-weight:800;color:#fff;display:block;margin-bottom:3px}
+.bub .sub{color:#9fb0c2;font-size:12px}
+.kb{display:grid;gap:4px;margin-top:4px}
+.bub::after,.inv-body::after{content:"";display:block;clear:both}
+.phone{text-align:left}
+.kb.c2{grid-template-columns:1fr 1fr}
+.kb > span{display:block;text-align:center;font-size:12.5px;font-weight:600;color:#fff;padding:7px 6px;border-radius:9px;background:var(--tg-btn);backdrop-filter:blur(4px)}
+.kb > span.pressed{background:rgba(106,179,243,.35)}
+.svc{align-self:center;max-width:90%;font-size:12px;color:#fff;background:rgba(10,20,32,.7);padding:4px 12px;border-radius:12px;text-align:center}
+.svc.show{display:block}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.dot.g{background:var(--lime);box-shadow:0 0 6px var(--lime)}
+.dot.r{background:var(--red);box-shadow:0 0 6px var(--red)}
+.star{color:var(--amber)}
+.typing{display:none;align-self:flex-start;background:var(--tg-in);border-radius:14px;border-bottom-left-radius:4px;padding:10px 12px}
+.typing.on{display:flex;gap:4px;animation:pop .2s ease both}
+.typing i{width:6px;height:6px;border-radius:50%;background:#7d8b99;animation:blink .9s ease-in-out infinite}
+.typing i:nth-child(2){animation-delay:.15s}
+.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-2px)}}
+
+/* In-chat widgets */
+.rows{margin:4px 0 2px;display:grid;gap:3px}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;padding:4px 7px;border-radius:7px;background:rgba(255,255,255,.04)}
+.row .r{color:#9fb0c2;font-family:'JetBrains Mono',monospace;font-size:11.5px;white-space:nowrap}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:6px 0}
+.sg{background:rgba(255,255,255,.05);border-radius:8px;padding:6px 4px;text-align:center}
+.sg b{display:block;font-family:'JetBrains Mono',monospace;font-size:15px;color:#fff}
+.sg small{font-size:10.5px;color:#9fb0c2}
+.sg.hl b{color:var(--cyan)}
+.bar{height:6px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden;margin:4px 0 2px}
+.bar i{display:block;height:100%;width:0;background:var(--grad);border-radius:4px;transition:width 1.1s ease .2s}
+.m.show .bar i{width:72%}
+.top{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+.top td{padding:3px 4px;border-bottom:1px solid rgba(255,255,255,.06)}
+.top td:first-child{width:20px;color:#9fb0c2;font-family:'JetBrains Mono',monospace}
+.top td:last-child{text-align:right;font-family:'JetBrains Mono',monospace;color:#cfe3ff}
+.top tr.me td{color:var(--cyan)}
+.top tr:last-child td{border-bottom:none}
+.brk{display:grid;grid-template-columns:1fr 1fr .9fr;gap:10px;margin:6px 0 4px;align-items:stretch}
+.brk .col{position:relative;display:flex;flex-direction:column;justify-content:space-around;gap:6px;height:100%;padding-top:16px}
+.brk .lbl{position:absolute;top:0;left:0;right:0;font-size:9.5px;color:#9fb0c2;text-transform:uppercase;letter-spacing:.06em;text-align:center}
+.mt{position:relative;background:rgba(255,255,255,.05);border-radius:6px;padding:3px 5px;font-size:10.5px;line-height:1.35}
+.mt div{display:flex;justify-content:space-between;gap:4px;white-space:nowrap;color:#8d9aab}
+.mt div.w{color:#fff;font-weight:700}
+.mt::after{content:"";position:absolute;right:-10px;top:50%;width:10px;border-top:1px solid rgba(106,179,243,.45)}
+.brk .col:last-child .mt::after{display:none}
+.mt.next{outline:1px solid rgba(63,220,255,.6);box-shadow:0 0 10px -2px rgba(63,220,255,.5)}
+.mt.next div{color:#e9f8ff}
+.invoice{overflow:hidden;padding:0!important}
+.inv-top{height:74px;display:grid;place-items:center;background:radial-gradient(circle at 30% 30%,rgba(255,199,90,.35),transparent 60%),linear-gradient(135deg,#1d2b44,#2a1f4a)}
+.inv-top svg{width:44px;height:44px;filter:drop-shadow(0 0 12px rgba(255,199,90,.6))}
+.inv-body{padding:8px 10px 6px}
+.inv-price{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:var(--amber);margin-top:4px}
+.kb > span.pay{background:linear-gradient(90deg,#2d7bd6,#3d9cf0)}
+.shot{margin:5px 0 4px;border-radius:9px;overflow:hidden;background:linear-gradient(160deg,#141c2e,#0b0f18);border:1px solid rgba(255,255,255,.08);padding:8px 9px;font-family:'JetBrains Mono',monospace}
+.shot .st{display:flex;justify-content:space-between;font-size:9px;color:#8090a8;letter-spacing:.08em}
+.shot .sc{display:flex;justify-content:space-between;align-items:center;margin:6px 0 5px;font-size:11px;font-weight:700}
+.shot .sc .n{font-size:20px;color:#fff}
+.shot .sc .a{color:var(--lime)}
+.shot .sc .b{color:var(--red)}
+.shot .ln{display:flex;justify-content:space-between;font-size:9px;color:#9fb0c2;padding:2px 0;border-top:1px solid rgba(255,255,255,.05)}
+
+/* Sections */
+section{position:relative}
+.sec{padding:96px 0}
+.sec-head{max-width:720px;margin:0 auto 56px;text-align:center}
+.eyebrow{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.sec-head h2{font-size:38px;margin-bottom:16px}
+.sec-head p{color:var(--muted);font-size:17px}
+
+.scene{display:grid;grid-template-columns:400px 1fr;gap:72px;align-items:center;padding:56px 0}
+.scene.rev{grid-template-columns:1fr 400px}
+.scene.rev .phone-wrap{order:2}
+.scene + .scene{border-top:1px solid var(--line)}
+.s-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--violet);margin-bottom:10px;letter-spacing:.08em}
+.s-text h3{font-size:30px;margin-bottom:16px}
+.s-text p{color:var(--muted);font-size:16.5px;margin-bottom:20px;max-width:520px}
+.benefit{border:1px solid rgba(111,240,164,.22);background:linear-gradient(135deg,rgba(111,240,164,.07),rgba(63,220,255,.03));border-radius:16px;padding:16px 18px;max-width:520px;margin-bottom:18px}
+.benefit b{display:block;font-size:12.5px;color:var(--lime);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.benefit span{color:#d6deef;font-size:15.5px}
+.cmds{display:flex;gap:8px;flex-wrap:wrap}
+.cmds code{font-family:'JetBrains Mono',monospace;font-size:13px;color:#bfefff;padding:5px 10px;border-radius:8px;background:rgba(63,220,255,.07);border:1px solid rgba(63,220,255,.2)}
+
+/* Architecture */
+.arch{max-width:980px;margin:0 auto}
+.node{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;text-align:center;opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.arch.in .node{opacity:1;transform:none}
+.node .ni{width:40px;height:40px;margin:0 auto 10px;border-radius:12px;display:grid;place-items:center;background:rgba(63,220,255,.1);color:var(--cyan)}
+.node .ni svg{width:22px;height:22px}
+.node b{display:block;font-size:15px;margin-bottom:3px}
+.node small{display:block;color:var(--muted);font-size:13px;line-height:1.45}
+.tier{display:flex;justify-content:center}
+.tier .node{width:340px}
+.node.core{border-color:rgba(143,125,255,.45);background:linear-gradient(160deg,rgba(143,125,255,.16),rgba(18,24,42,.85));box-shadow:0 0 40px -14px rgba(143,125,255,.6)}
+.node.core .ni{background:rgba(143,125,255,.18);color:#c9c0ff}
+.link-v{width:2px;height:44px;margin:0 auto;background:linear-gradient(var(--cyan),var(--violet));transform:scaleY(0);transform-origin:top;transition:transform .5s ease}
+.arch.in .link-v{transform:scaleY(1)}
+.link-v.l2{transition-delay:.5s}
+.bus{position:relative;height:28px;margin:0 10%}
+.bus::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--violet);transform:scaleX(0);transition:transform .6s ease .9s}
+.arch.in .bus::before{transform:scaleX(1)}
+.bus i{position:absolute;top:0;width:2px;height:28px;background:var(--violet);transform:scaleY(0);transform-origin:top;transition:transform .35s ease 1.4s}
+.arch.in .bus i{transform:scaleY(1)}
+.mods{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.arch.in .tier:first-child .node{transition-delay:0s}
+.arch.in .tier.mid .node{transition-delay:.35s}
+.arch.in .mods .node{transition-delay:1.5s}
+.arch.in .mods .node:nth-child(2){transition-delay:1.6s}
+.arch.in .mods .node:nth-child(3){transition-delay:1.7s}
+.arch.in .mods .node:nth-child(4){transition-delay:1.8s}
+.arch.in .mods .node:nth-child(5){transition-delay:1.9s}
+.arch-note{margin-top:28px;text-align:center;color:var(--muted);font-size:14.5px}
+
+/* Numbers */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.num{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px 22px;text-align:center}
+.num b{display:block;font-family:'Unbounded',sans-serif;font-size:38px;font-weight:700;margin-bottom:6px}
+.num > span{color:var(--muted);font-size:14.5px}
+
+/* Ideas */
+.ideas{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.idea{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px;transition:border-color .25s,transform .25s}
+.idea:hover{border-color:rgba(63,220,255,.35);transform:translateY(-3px)}
+.idea .ii{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;margin-bottom:14px;background:rgba(143,125,255,.14);color:#c9c0ff}
+.idea .ii svg{width:22px;height:22px}
+.idea h3{font-family:'Manrope';font-size:17px;font-weight:800;margin-bottom:8px;letter-spacing:0}
+.idea p{color:var(--muted);font-size:14.5px}
+
+/* CTA */
+.cta{padding:110px 0 120px}
+.cta-box{position:relative;overflow:hidden;text-align:center;border-radius:28px;padding:72px 32px;border:1px solid rgba(63,220,255,.25);background:radial-gradient(ellipse at 50% 0%,rgba(63,220,255,.16),transparent 60%),radial-gradient(ellipse at 50% 120%,rgba(143,125,255,.22),transparent 60%),var(--bg2)}
+.cta-box h2{font-size:40px;margin-bottom:16px}
+.cta-box p{color:var(--muted);font-size:17px;max-width:600px;margin:0 auto 32px}
+.cta-list{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 22px;margin-top:26px;color:#c9d2e8;font-size:14.5px}
+.cta-list span::before{content:"\2713";color:var(--lime);margin-right:7px;font-weight:800}
+
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted2);font-size:14px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:1020px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero{text-align:center}
+  .hero p.lead{margin-left:auto;margin-right:auto}
+  .hero-actions,.chips{justify-content:center}
+  .scene,.scene.rev{grid-template-columns:1fr;gap:36px}
+  .scene.rev .phone-wrap{order:0}
+  .s-text{max-width:600px;margin:0 auto;width:100%}
+  .mods{grid-template-columns:repeat(3,1fr)}
+  .bus{display:none}
+  .link-v.l2{height:28px}
+  .nums{grid-template-columns:repeat(2,1fr)}
+  .ideas{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .container{padding:0 20px}
+  .nav-links{display:none}
+  .nav .btn{padding:10px 14px;font-size:14px}
+  .hero{padding:44px 0 64px}
+  .hero h1{font-size:31px}
+  .hero p.lead{font-size:16px}
+  .hero-actions .btn{width:100%}
+  .sec{padding:68px 0}
+  .sec-head{margin-bottom:36px}
+  .sec-head h2{font-size:27px}
+  .sec-head p{font-size:15.5px}
+  .scene{padding:40px 0}
+  .s-text h3{font-size:23px}
+  .s-text p{font-size:15.5px}
+  .phone{width:100%;height:700px}
+  .phone-wrap{width:100%}
+  .tier .node{width:100%}
+  .mods{grid-template-columns:1fr 1fr}
+  .mods .node:last-child{grid-column:1/-1}
+  .nums{gap:12px}
+  .num{padding:22px 12px}
+  .num b{font-size:28px}
+  .num > span{font-size:13px}
+  .ideas{grid-template-columns:1fr}
+  .cta{padding:70px 0 80px}
+  .cta-box{padding:48px 20px;border-radius:22px}
+  .cta-box h2{font-size:27px}
+  .cta-box p{font-size:15.5px}
+  .cta-box .btn{width:100%}
+  .foot{justify-content:center;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#3fdcff"/><stop offset="1" stop-color="#8f7dff"/></linearGradient></defs><path d="M16 2l12 5v8c0 7.5-5.1 13.2-12 15-6.9-1.8-12-7.5-12-15V7l12-5z" stroke="url(#lg)" stroke-width="2.2"/><path d="M11 16.5l3.5 3.5L21.5 12" stroke="url(#lg)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ClutchBot
+    </a>
+    <nav class="nav-links">
+      <a href="#scenes">Сценарии</a>
+      <a href="#arch">Как устроено</a>
+      <a href="#more">Доработки</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary">Обсудить бота</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- Hero -->
+<section class="hero">
+  <div class="bg-glow"><span class="g1"></span><span class="g2"></span></div>
+  <div class="grid-bg"></div>
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <div class="badge"><i></i>Telegram-бот для игрового сообщества</div>
+      <h1>ClutchBot: турниры, статистика и&nbsp;сервер в&nbsp;<span class="grad-text">одном чате</span></h1>
+      <p class="lead">Бот для сообщества командного шутера: регистрирует команды, ведёт сетку и расписание, напоминает о матчах, считает рейтинг, принимает взносы в Telegram Stars и сам сообщает, если сервер упал.</p>
+      <div class="hero-actions">
+        <a href="#scenes" class="btn btn-primary btn-lg">Смотреть сценарии</a>
+        <a href="#contact" class="btn btn-ghost btn-lg">Обсудить бота</a>
+      </div>
+      <div class="chips">
+        <span class="chip"><b>/register</b> команда</span>
+        <span class="chip"><b>/stats</b> игрок</span>
+        <span class="chip"><b>/bracket</b> сетка</span>
+        <span class="chip"><b>/online</b> сервер</span>
+        <span class="chip"><b>/admin</b> панель</span>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>19:12</span><span class="sb-r"><s></s><i></i></span></div>
+        <div class="tg-head">
+          <svg class="tg-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+          <div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3.3v5.4c0 5-3.4 8.8-8 10.3-4.6-1.5-8-5.3-8-10.3V5.8l8-3.3z"/><path d="M8.5 12.2l2.4 2.4 4.8-5"/></svg></div>
+          <div class="tg-title"><b>ClutchBot</b><span data-st>бот</span></div>
+        </div>
+        <div class="chat">
+          <div class="m out"><div class="bub"><span class="cmd">/online</span><span class="t">19:12</span></div></div>
+          <div class="m in wide"><div class="bub">
+            <span class="h">Серверы сообщества</span>
+            <div class="rows">
+              <div class="row"><span><i class="dot g"></i>#1 Основной</span><span class="r">18/20 · 24 мс</span></div>
+              <div class="row"><span><i class="dot g"></i>#2 Турнирный</span><span class="r">10/10 · 31 мс</span></div>
+              <div class="row"><span><i class="dot g"></i>#3 Тренировка</span><span class="r">7/16 · 28 мс</span></div>
+            </div>
+            <span class="sub">Проверено 5 секунд назад</span><span class="t">19:12</span>
+            </div><div class="kb c2"><span>Обновить</span><span>Подключиться к #1</span></div></div>
+          <div class="m in"><div class="bub"><span class="h"><i class="dot r"></i>Сервер #3 не отвечает</span>Нет ответа 60 секунд. Админы получили уведомление, игроки в лобби предупреждены.<span class="t">19:14</span></div></div>
+          <div class="m in"><div class="bub"><span class="h"><i class="dot g"></i>Сервер #3 снова в сети</span>Простой: 2 мин 14 с. Онлайн восстанавливается: 5/16.<span class="t">19:16</span></div></div>
+          <div class="typing"><i></i><i></i><i></i></div>
+        </div>
+        <div class="tg-input">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8M9 9.5h.01M15 9.5h.01" stroke-linecap="round"/></svg>
+          <div class="field">Сообщение</div>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Scenes -->
+<section class="sec" id="scenes" style="padding-top:40px">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Сценарии</span>
+      <h2>Как бот работает в чате</h2>
+      <p>Пять живых сценариев: от регистрации команды до проверки результата матча админом. Всё внутри Telegram, без сайтов и таблиц.</p>
+    </div>
+
+    <!-- Scene 1: registration -->
+    <div class="scene">
+      <div class="phone-wrap">
+        <div class="phone"><div class="screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>18:40</span><span class="sb-r"><s></s><i></i></span></div>
+          <div class="tg-head">
+            <svg class="tg-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+            <div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3.3v5.4c0 5-3.4 8.8-8 10.3-4.6-1.5-8-5.3-8-10.3V5.8l8-3.3z"/><path d="M8.5 12.2l2.4 2.4 4.8-5"/></svg></div>
+            <div class="tg-title"><b>ClutchBot</b><span data-st>бот</span></div>
+          </div>
+          <div class="chat">
+            <div class="m out"><div class="bub"><span class="cmd">/register</span><span class="t">18:40</span></div></div>
+            <div class="m in"><div class="bub"><span class="h">Clutch Cup #14 · 5x5</span>Старт 8 ноября в 18:00, свободно 4 слота из 16. Как называется ваша команда?<span class="t">18:40</span></div></div>
+            <div class="m out"><div class="bub">Night Owls<span class="t">18:41</span></div></div>
+            <div class="m in"><div class="bub">Отлично. Отправьте ники пяти игроков через пробел, капитан первым.<span class="t">18:41</span></div></div>
+            <div class="m out"><div class="bub">@vex @kira @moro @dan4ik @lynx<span class="t">18:42</span></div></div>
+            <div class="m in wide"><div class="bub">
+              <span class="h">Команда Night Owls заявлена</span>
+              <div class="rows">
+                <div class="row"><span>Капитан</span><span class="r">@vex</span></div>
+                <div class="row"><span>Состав</span><span class="r">5/5 · все в боте</span></div>
+                <div class="row"><span>Слот в сетке</span><span class="r">13 из 16</span></div>
+                <div class="row"><span>Взнос</span><span class="r"><span class="star">★</span> 250 · ждёт оплаты</span></div>
+              </div>
+              <span class="sub">Игроки получили приглашения в личку.</span><span class="t">18:42</span>
+              </div><div class="kb c2"><span>Добавить запасного</span><span>Оплатить взнос</span></div></div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+          <div class="tg-input">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8M9 9.5h.01M15 9.5h.01" stroke-linecap="round"/></svg>
+            <div class="field">Сообщение</div>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+          </div>
+        </div></div>
+      </div>
+      <div class="s-text reveal">
+        <div class="s-num">01 · РЕГИСТРАЦИЯ</div>
+        <h3>Заявка команды за минуту</h3>
+        <p>Капитан пишет боту, вводит название и состав. Бот проверяет, что все игроки есть в боте и не заявлены в другой команде, выдаёт слот и отправляет приглашения участникам.</p>
+        <div class="benefit"><b>Польза организатору</b><span>Не нужно собирать заявки в личке и сверять ники вручную. Список команд всегда актуален, лишние и дубли отсекаются сразу.</span></div>
+        <div class="cmds"><code>/register</code><code>/team</code><code>/leave</code></div>
+      </div>
+    </div>
+
+    <!-- Scene 2: stats -->
+    <div class="scene rev">
+      <div class="phone-wrap">
+        <div class="phone"><div class="screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>21:05</span><span class="sb-r"><s></s><i></i></span></div>
+          <div class="tg-head">
+            <svg class="tg-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+            <div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3.3v5.4c0 5-3.4 8.8-8 10.3-4.6-1.5-8-5.3-8-10.3V5.8l8-3.3z"/><path d="M8.5 12.2l2.4 2.4 4.8-5"/></svg></div>
+            <div class="tg-title"><b>ClutchBot</b><span data-st>бот</span></div>
+          </div>
+          <div class="chat">
+            <div class="m out"><div class="bub"><span class="cmd">/stats</span><span class="t">21:05</span></div></div>
+            <div class="m in wide"><div class="bub">
+              <span class="h">@kira · Night Owls</span>
+              <span class="sub">Сезон 3 · 61 матч</span>
+              <div class="statgrid">
+                <div class="sg hl"><b>1.42</b><small>K/D</small></div>
+                <div class="sg"><b>38</b><small>победы</small></div>
+                <div class="sg hl"><b>2 140</b><small>рейтинг</small></div>
+                <div class="sg"><b>47%</b><small>в голову</small></div>
+                <div class="sg"><b>212</b><small>урон/раунд</small></div>
+                <div class="sg"><b>9</b><small>MVP</small></div>
+              </div>
+              <span class="sub">До ранга "Элита": 360 очков</span>
+              <div class="bar"><i></i></div><span class="t">21:05</span>
+              </div><div class="kb c2"><span class="pressed">Топ недели</span><span>История матчей</span></div></div>
+            <div class="m in wide"><div class="bub">
+              <span class="h">Топ игроков недели</span>
+              <table class="top">
+                <tr><td>1</td><td>@nox · Iron Wolves</td><td>2 480</td></tr>
+                <tr><td>2</td><td>@shade · Void Unit</td><td>2 395</td></tr>
+                <tr><td>3</td><td>@riko · Neon Rats</td><td>2 310</td></tr>
+                <tr class="me"><td>4</td><td>@kira · Night Owls</td><td>2 140</td></tr>
+                <tr><td>5</td><td>@tamp · Frost Bite</td><td>2 085</td></tr>
+              </table>
+              <span class="sub">Обновляется после каждого матча</span><span class="t">21:05</span>
+            </div></div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+          <div class="tg-input">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8M9 9.5h.01M15 9.5h.01" stroke-linecap="round"/></svg>
+            <div class="field">Сообщение</div>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+          </div>
+        </div></div>
+      </div>
+      <div class="s-text reveal">
+        <div class="s-num">02 · СТАТИСТИКА</div>
+        <h3>Статистика и топ недели</h3>
+        <p>По команде /stats игрок видит K/D, победы, рейтинг и прогресс до следующего ранга. Каждую неделю бот собирает топ игроков и публикует его в канале сообщества.</p>
+        <div class="benefit"><b>Польза организатору</b><span>Игрокам есть ради чего возвращаться: рейтинг и топ держат активность между турнирами, а канал получает регулярный контент без ручной работы.</span></div>
+        <div class="cmds"><code>/stats</code><code>/top</code><code>/history</code></div>
+      </div>
+    </div>
+
+    <!-- Scene 3: reminder + bracket -->
+    <div class="scene">
+      <div class="phone-wrap">
+        <div class="phone"><div class="screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>19:15</span><span class="sb-r"><s></s><i></i></span></div>
+          <div class="tg-head">
+            <svg class="tg-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+            <div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3.3v5.4c0 5-3.4 8.8-8 10.3-4.6-1.5-8-5.3-8-10.3V5.8l8-3.3z"/><path d="M8.5 12.2l2.4 2.4 4.8-5"/></svg></div>
+            <div class="tg-title"><b>ClutchBot</b><span data-st>бот</span></div>
+          </div>
+          <div class="chat">
+            <div class="m in wide"><div class="bub">
+              <span class="h">⏰ Матч через 15 минут</span>
+              <div class="rows">
+                <div class="row"><span>Night Owls vs Iron Wolves</span><span class="r">19:30</span></div>
+                <div class="row"><span>Полуфинал · сервер #2</span><span class="r">BO1</span></div>
+              </div>
+              <span class="sub">Подтвердите готовность до 19:25.</span><span class="t">19:15</span>
+              </div><div class="kb c2"><span class="pressed">Мы готовы</span><span>Нужна замена</span></div></div>
+            <div class="m in"><div class="bub">Готовность Night Owls подтверждена. Данные для входа на сервер придут капитану в 19:28.<span class="t">19:15</span></div></div>
+            <div class="m out"><div class="bub"><span class="cmd">/bracket</span><span class="t">19:16</span></div></div>
+            <div class="m in wide"><div class="bub">
+              <span class="h">🏆 Сетка Clutch Cup #14</span>
+              <div class="brk">
+                <div class="col">
+                  <div class="lbl">1/4</div>
+                  <div class="mt"><div class="w"><span>Owls</span><span>13</span></div><div><span>Frost</span><span>7</span></div></div>
+                  <div class="mt"><div class="w"><span>Wolves</span><span>13</span></div><div><span>Pandas</span><span>11</span></div></div>
+                  <div class="mt"><div class="w"><span>Void</span><span>13</span></div><div><span>Echo</span><span>4</span></div></div>
+                  <div class="mt"><div><span>Vipers</span><span>9</span></div><div class="w"><span>Rats</span><span>13</span></div></div>
+                </div>
+                <div class="col">
+                  <div class="lbl">1/2</div>
+                  <div class="mt next"><div><span>Owls</span><span>19:30</span></div><div><span>Wolves</span><span></span></div></div>
+                  <div class="mt"><div><span>Void</span><span>20:30</span></div><div><span>Rats</span><span></span></div></div>
+                </div>
+                <div class="col">
+                  <div class="lbl">Финал</div>
+                  <div class="mt"><div><span>?</span><span>21:30</span></div><div><span>?</span><span></span></div></div>
+                </div>
+              </div>
+              <span class="t">19:16</span>
+              </div><div class="kb c2"><span>Расписание</span><span>Мои матчи</span></div></div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+          <div class="tg-input">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8M9 9.5h.01M15 9.5h.01" stroke-linecap="round"/></svg>
+            <div class="field">Сообщение</div>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+          </div>
+        </div></div>
+      </div>
+      <div class="s-text reveal">
+        <div class="s-num">03 · СЕТКА И НАПОМИНАНИЯ</div>
+        <h3>Никто не проспит матч</h3>
+        <p>Бот строит сетку турнира и расписание, за 15 минут до матча присылает напоминание обеим командам и просит подтвердить готовность. Сетка обновляется сама после каждого результата.</p>
+        <div class="benefit"><b>Польза организатору</b><span>Меньше неявок и технических поражений, турнир идёт по времени. Не нужно вручную тегать капитанов в общем чате перед каждой игрой.</span></div>
+        <div class="cmds"><code>/bracket</code><code>/schedule</code><code>/ready</code></div>
+      </div>
+    </div>
+
+    <!-- Scene 4: Stars -->
+    <div class="scene rev">
+      <div class="phone-wrap">
+        <div class="phone"><div class="screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>18:44</span><span class="sb-r"><s></s><i></i></span></div>
+          <div class="tg-head">
+            <svg class="tg-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+            <div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3.3v5.4c0 5-3.4 8.8-8 10.3-4.6-1.5-8-5.3-8-10.3V5.8l8-3.3z"/><path d="M8.5 12.2l2.4 2.4 4.8-5"/></svg></div>
+            <div class="tg-title"><b>ClutchBot</b><span data-st>бот</span></div>
+          </div>
+          <div class="chat">
+            <div class="m out"><div class="bub">Оплатить взнос<span class="t">18:44</span></div></div>
+            <div class="m in wide"><div class="bub invoice">
+              <div class="inv-top"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z" fill="#ffc75a"/></svg></div>
+              <div class="inv-body">
+                <span class="h">Взнос: Clutch Cup #14</span>
+                <span class="sub">Команда Night Owls, 5 игроков. Идёт в призовой фонд турнира.</span>
+                <div class="inv-price"><span class="star">★</span> 250</div>
+                <span class="t">18:44</span>
+              </div>
+            </div><div class="kb"><span class="pay">Заплатить <span class="star" style="color:#fff">★</span> 250</span></div></div>
+            <div class="m svc">Вы перевели <span class="star">★</span> 250 боту ClutchBot</div>
+            <div class="m in wide"><div class="bub">
+              <span class="h">✅ Оплата получена</span>
+              <div class="rows">
+                <div class="row"><span>Чек</span><span class="r">#CC14-4821</span></div>
+                <div class="row"><span>Статус команды</span><span class="r">в основной сетке</span></div>
+                <div class="row"><span>Призовой фонд</span><span class="r"><span class="star">★</span> 3 750</span></div>
+              </div>
+              <span class="sub">Капитан и состав получили подтверждение.</span><span class="t">18:45</span>
+              </div><div class="kb"><span>Открыть сетку</span></div></div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+          <div class="tg-input">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8M9 9.5h.01M15 9.5h.01" stroke-linecap="round"/></svg>
+            <div class="field">Сообщение</div>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+          </div>
+        </div></div>
+      </div>
+      <div class="s-text reveal">
+        <div class="s-num">04 · ОПЛАТА STARS</div>
+        <h3>Взнос в Telegram Stars</h3>
+        <p>Оплата участия прямо в чате: бот выставляет счёт в Telegram Stars, игрок платит в два нажатия, бот сразу переводит команду в основную сетку и пересчитывает призовой фонд.</p>
+        <div class="benefit"><b>Польза организатору</b><span>Не нужно принимать переводы на карту и сверять скриншоты оплат. Каждый платёж привязан к команде, неоплатившие автоматически уходят в лист ожидания.</span></div>
+        <div class="cmds"><code>/pay</code><code>/prize</code><code>/refund</code></div>
+      </div>
+    </div>
+
+    <!-- Scene 5: admin -->
+    <div class="scene">
+      <div class="phone-wrap">
+        <div class="phone"><div class="screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>20:02</span><span class="sb-r"><s></s><i></i></span></div>
+          <div class="tg-head">
+            <svg class="tg-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+            <div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3.3v5.4c0 5-3.4 8.8-8 10.3-4.6-1.5-8-5.3-8-10.3V5.8l8-3.3z"/><path d="M8.5 12.2l2.4 2.4 4.8-5"/></svg></div>
+            <div class="tg-title"><b>ClutchBot · админ</b><span data-st>бот</span></div>
+          </div>
+          <div class="chat">
+            <div class="m out"><div class="bub"><span class="cmd">/admin</span><span class="t">20:02</span></div></div>
+            <div class="m in wide"><div class="bub">
+              <span class="h">🛡 Админ-панель · Cup #14</span>
+              <div class="rows">
+                <div class="row"><span>Команд / оплачено</span><span class="r">16 / 15</span></div>
+                <div class="row"><span>Результаты на проверке</span><span class="r">1</span></div>
+                <div class="row"><span>Серверы</span><span class="r"><i class="dot g"></i>3 из 3</span></div>
+              </div>
+              <span class="t">20:02</span>
+              </div><div class="kb c2"><span>Рассылка</span><span class="pressed">Результаты (1)</span><span>Баны</span><span>Серверы</span></div></div>
+            <div class="m in wide"><div class="bub">
+              <span class="h">Результат от @nox (Iron Wolves)</span>
+              <div class="shot">
+                <div class="st"><span>MATCH RESULT</span><span>КАРТА: ПОРТ</span></div>
+                <div class="sc"><span class="a">WOLVES</span><span class="n">13 : 9</span><span class="b">OWLS</span></div>
+                <div class="ln"><span>nox 24/12</span><span>kira 19/16</span></div>
+                <div class="ln"><span>bram 18/14</span><span>vex 15/17</span></div>
+              </div>
+              <span class="sub">Полуфинал · 19:30 · сервер #2</span><span class="t">20:03</span>
+              </div><div class="kb c2"><span class="pressed">Подтвердить</span><span>Отклонить</span></div></div>
+            <div class="m in"><div class="bub">✅ Результат засчитан. Сетка обновлена, Iron Wolves в финале, обе команды и канал уведомлены.<span class="t">20:03</span></div></div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+          <div class="tg-input">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8M9 9.5h.01M15 9.5h.01" stroke-linecap="round"/></svg>
+            <div class="field">Сообщение</div>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+          </div>
+        </div></div>
+      </div>
+      <div class="s-text reveal">
+        <div class="s-num">05 · АДМИН-ПАНЕЛЬ</div>
+        <h3>Управление турниром из чата</h3>
+        <p>Админ видит сводку турнира, делает рассылку участникам, банит нарушителей и подтверждает результаты матчей по скриншоту, который капитан отправил боту. Одно нажатие, и сетка обновлена.</p>
+        <div class="benefit"><b>Польза организатору</b><span>Весь турнир в одном месте и с телефона. Спорные результаты не теряются в переписке, а у каждого решения есть след: кто и когда подтвердил.</span></div>
+        <div class="cmds"><code>/admin</code><code>/broadcast</code><code>/ban</code></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section class="sec" id="arch">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Как устроено</span>
+      <h2>Простая и надёжная схема</h2>
+      <p>Бот написан на Python, данные хранятся в базе, напоминания и проверка сервера работают по расписанию в фоне.</p>
+    </div>
+    <div class="arch" id="archBox">
+      <div class="tier">
+        <div class="node">
+          <div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21.5 4.5L2.8 11.6c-.9.3-.8 1.6.1 1.8l4.6 1.3 1.8 5.6c.2.7 1.1.9 1.6.4l2.6-2.4 4.7 3.5c.6.4 1.4.1 1.6-.6l3.1-15.3c.2-.9-.6-1.6-1.4-1.4z"/><path d="M7.5 14.7l10-7.2-7.7 9"/></svg></div>
+          <b>Telegram</b><small>Игроки, капитаны и админы пишут боту в личку и в чат сообщества</small>
+        </div>
+      </div>
+      <div class="link-v"></div>
+      <div class="tier mid">
+        <div class="node core">
+          <div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M9 12h.01M15 12h.01M9.5 16h5"/></svg></div>
+          <b>Бот на Python, aiogram 3</b><small>Команды, инлайн-кнопки, счета Stars, роли игрок и админ</small>
+        </div>
+      </div>
+      <div class="link-v l2"></div>
+      <div class="bus"><i style="left:0"></i><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i><i style="left:calc(100% - 2px)"></i></div>
+      <div class="mods">
+        <div class="node">
+          <div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></svg></div>
+          <b>PostgreSQL</b><small>Команды, матчи, статистика, платежи</small>
+        </div>
+        <div class="node">
+          <div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+          <b>Redis</b><small>Состояния диалогов, кэш топа, антиспам</small>
+        </div>
+        <div class="node">
+          <div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></div>
+          <b>Планировщик</b><small>Напоминания за 15 минут, топ недели</small>
+        </div>
+        <div class="node">
+          <div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></div>
+          <b>Проверка сервера</b><small>Запрос к серверу раз в 30 секунд, тревога при сбое</small>
+        </div>
+        <div class="node">
+          <div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3.3v5.4c0 5-3.4 8.8-8 10.3-4.6-1.5-8-5.3-8-10.3V5.8l8-3.3z"/></svg></div>
+          <b>Админ-панель</b><small>Рассылки, баны, проверка результатов</small>
+        </div>
+      </div>
+      <p class="arch-note">Разворачивается на обычном VPS в Docker. Логи, бэкапы базы и перезапуск при сбое настроены сразу.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Numbers -->
+<section class="sec" style="padding-top:20px">
+  <div class="container">
+    <div class="nums" id="nums">
+      <div class="num"><b><span class="cnt" data-to="1284">0</span></b><span>команд зарегистрировано</span></div>
+      <div class="num"><b><span class="cnt" data-to="3970">0</span></b><span>матчей проведено</span></div>
+      <div class="num"><b>&lt;<span class="cnt" data-to="0.3" data-dec="1">0</span>&nbsp;с</b><span>время ответа бота</span></div>
+      <div class="num"><b><span class="cnt" data-to="98" >0</span>%</b><span>матчей начались вовремя</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Ideas -->
+<section class="sec" id="more">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Под ваш проект</span>
+      <h2>Что можно добавить</h2>
+      <p>Бот собирается из модулей. Берите нужные, остальное добавим, когда сообщество вырастет.</p>
+    </div>
+    <div class="ideas">
+      <div class="idea reveal">
+        <div class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3" stroke-linecap="round"/></svg></div>
+        <h3>Mini App с сеткой</h3><p>Красивая интерактивная сетка, профили игроков и история матчей прямо внутри Telegram.</p>
+      </div>
+      <div class="idea reveal">
+        <div class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></div>
+        <h3>Статистика с сервера</h3><p>Автоматический сбор убийств, смертей и результатов из логов игрового сервера, без скриншотов.</p>
+      </div>
+      <div class="idea reveal">
+        <div class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.6 5.5 6 .8-4.4 4.1 1.1 6L12 16.5 6.7 19.4l1.1-6L3.4 9.3l6-.8z"/></svg></div>
+        <h3>Магазин за Stars</h3><p>Платные слоты, VIP-доступ на сервер, привилегии и донаты в Telegram Stars с автовыдачей.</p>
+      </div>
+      <div class="idea reveal">
+        <div class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3"/></svg></div>
+        <h3>Сезоны и лиги</h3><p>Рейтинг по системе ELO, дивизионы, повышение и понижение по итогам сезона, награды лучшим.</p>
+      </div>
+      <div class="idea reveal">
+        <div class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 010 7M18 14.5c2 .6 3.2 2.5 3.5 5.5"/></svg></div>
+        <h3>Поиск команды</h3><p>Игроки без команды оставляют анкету с ролью и рейтингом, капитаны находят замену за минуты.</p>
+      </div>
+      <div class="idea reveal">
+        <div class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div>
+        <h3>Отчёты и выгрузки</h3><p>Итоги турнира в CSV, отчёт по платежам и активности игроков, автопост результатов в канал.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-box reveal">
+      <span class="eyebrow">Ваше сообщество</span>
+      <h2>Нужен такой бот <span class="grad-text">для вашего сервера?</span></h2>
+      <p>Расскажите, как сейчас проходят ваши турниры и что отнимает больше всего времени. Предложу состав бота, сроки и стоимость по этапам.</p>
+      <a href="#contact" class="btn btn-primary btn-lg">Обсудить бота</a>
+      <div class="cta-list"><span>Python, aiogram 3</span><span>Оплата Telegram Stars</span><span>Деплой на ваш сервер</span><span>Поддержка после запуска</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container foot">
+    <span>ClutchBot · демо Telegram-бота</span>
+    <span>Демо-проект. Бот, команды и игроки вымышленные.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* Chat scenes: messages appear one by one, bot "types" before each reply */
+  function playChat(chat){
+    var msgs = Array.prototype.slice.call(chat.querySelectorAll('.m'));
+    var typing = chat.querySelector('.typing');
+    var st = chat.parentNode.querySelector('[data-st]');
+    if(reduce){ msgs.forEach(function(m){ m.classList.add('show'); }); return; }
+    var units = 0;
+    msgs.forEach(function(m){ units += m.classList.contains('in') ? 1.7 : 1; });
+    var step = Math.min(520, 2900 / units);
+    var t = 250;
+    msgs.forEach(function(m){
+      if(m.classList.contains('in')){
+        setTimeout(function(){ typing.classList.add('on'); if(st){ st.textContent = 'печатает...'; st.classList.add('typing-st'); } }, t);
+        t += step * 1.2;
+        setTimeout(function(){ typing.classList.remove('on'); m.classList.add('show'); if(st){ st.textContent = 'бот'; st.classList.remove('typing-st'); } }, t);
+        t += step * 0.5;
+      } else {
+        setTimeout(function(){ m.classList.add('show'); }, t);
+        t += step;
+      }
+    });
+  }
+
+  /* Count-up numbers */
+  function countUp(el){
+    var to = parseFloat(el.getAttribute('data-to'));
+    var dec = parseInt(el.getAttribute('data-dec') || '0', 10);
+    var fmt = function(v){ return dec ? v.toFixed(dec).replace('.', ',') : Math.round(v).toLocaleString('ru-RU'); };
+    if(reduce){ el.textContent = fmt(to); return; }
+    var dur = 1600, start = null;
+    function frame(ts){
+      if(!start) start = ts;
+      var p = Math.min(1, (ts - start) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(to * e);
+      if(p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  var chats = document.querySelectorAll('.chat');
+  var reveals = document.querySelectorAll('.reveal');
+  var arch = document.getElementById('archBox');
+  var nums = document.getElementById('nums');
+
+  if(!hasIO){
+    Array.prototype.forEach.call(chats, playChat);
+    Array.prototype.forEach.call(reveals, function(r){ r.classList.add('in'); });
+    arch.classList.add('in');
+    Array.prototype.forEach.call(nums.querySelectorAll('.cnt'), countUp);
+    return;
+  }
+
+  var chatIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ chatIO.unobserve(e.target); playChat(e.target); }
+    });
+  }, {threshold:0.45});
+  Array.prototype.forEach.call(chats, function(c){ chatIO.observe(c); });
+
+  var revIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); revIO.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  Array.prototype.forEach.call(reveals, function(r){ revIO.observe(r); });
+  revIO.observe(arch);
+
+  var numIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        numIO.unobserve(e.target);
+        Array.prototype.forEach.call(e.target.querySelectorAll('.cnt'), countUp);
+      }
+    });
+  }, {threshold:0.4});
+  numIO.observe(nums);
+})();
+</script>
+</body>
+</html>
